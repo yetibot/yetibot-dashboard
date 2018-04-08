@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    // use Babel for TS compilation
+    "noEmit": true,
+    "pretty": true,
     "outDir": "build/dist",
     "module": "esnext",
     "target": "es5",
@@ -8,7 +11,11 @@
     "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
+    "baseUrl": "./",
+
     "rootDir": "src",
+    "skipLibCheck": true,
+
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
