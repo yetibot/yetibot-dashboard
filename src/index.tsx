@@ -1,11 +1,26 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import './index.css';
+import ReactDOM from 'react-dom'
+import React from 'react'
+import { App } from './components/App'
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root') as HTMLElement
-);
-registerServiceWorker();
+type BarProps = {
+  a: string,
+  b: string
+}
+
+type Foo = {
+  name: string,
+  foo (): string,
+  bar (props: BarProps): number
+}
+
+const props: Foo = {
+  name: 'world',
+  foo: () => 'hi',
+  bar: () => 2
+}
+
+ReactDOM.render(<App {...props} />, document.body.appendChild(document.createElement('div')))
+
+export const test = {
+  isJestWorking: true
+}

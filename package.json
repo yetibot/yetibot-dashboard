@@ -1,23 +1,96 @@
 {
-  "name": "yetibot-dashboard",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0",
-    "react-scripts-ts": "2.14.0"
-  },
+  "name": "babel-7-typescript-example",
+  "version": "1.0.0",
+  "description": "Example TypeScript project built on top of new Babel 7 features",
+  "keywords": [
+    "babel",
+    "babel 7",
+    "typescript",
+    "react",
+    "example"
+  ],
+  "main": "./dist/index.js",
+  "repository": "git@github.com:damassi/babel-7-typescript-example.git",
+  "author": "Christopher Pappas <damassi.pappas@gmail.com>",
+  "license": "MIT",
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "prebuild": "yarn clean",
+    "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js --progress --profile --color --display-error-details --display-cached",
+    "clean": "rimraf dist .cache-loader",
+    "coverage": "cross-env NODE_ENV=test jest --coverage",
+    "prepublishOnly": "yarn build",
+    "start": "cross-env NODE_ENV=development webpack-dev-server",
+    "test": "cross-env NODE_ENV=test jest",
+    "test:watch": "yarn test -o --watch",
+    "lint": "tslint \"src/**/*.ts\""
+  },
+  "jest": {
+    "setupFiles": [
+      "./jest.setup.js"
+    ],
+    "moduleDirectories": [
+      "./node_modules",
+      "./src"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "typescript-babel-jest"
+    },
+    "testMatch": [
+      "**/*.test.(ts|tsx|js)"
+    ]
+  },
+  "resolutions": {
+    "babel-core": "^7.0.0-bridge.0"
   },
   "devDependencies": {
-    "@types/jest": "^22.2.2",
-    "@types/node": "^9.6.1",
-    "@types/react": "^16.1.0",
+    "@babel/cli": "^7.0.0-beta.40",
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/node": "^7.0.0-beta.40",
+    "@babel/preset-env": "^7.0.0-beta.40",
+    "@babel/preset-react": "^7.0.0-beta.40",
+    "@babel/preset-stage-3": "^7.0.0-beta.40",
+    "@babel/preset-typescript": "^7.0.0-beta.40",
+    "@babel/register": "^7.0.0-beta.40",
+    "@types/enzyme": "^3.1.9",
+    "@types/jest": "^22.1.3",
+    "@types/react": "^16.0.38",
     "@types/react-dom": "^16.0.4",
-    "typescript": "^2.8.1"
-  }
+    "babel-loader": "8.0.0-beta.0",
+    "babel-plugin-module-resolver": "^3.1.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "cache-loader": "^1.2.0",
+    "cross-env": "^5.1.3",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "fork-ts-checker-notifier-webpack-plugin": "^0.2.0",
+    "fork-ts-checker-webpack-plugin": "^0.3.0",
+    "html-webpack-plugin": "^2.30.1",
+    "jest": "22.4.0",
+    "nodemon": "^1.15.1",
+    "rimraf": "^2.6.2",
+    "thread-loader": "^1.1.2",
+    "tslint": "^5.9.1",
+    "tslint-config-standard": "^7.0.0",
+    "tslint-react": "^3.5.1",
+    "typescript": "^2.7.2",
+    "typescript-babel-jest": "^1.0.5",
+    "uglifyjs-webpack-plugin": "^1.2.0",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^2.11.1",
+    "webpack-fail-plugin": "^2.0.0"
+  },
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "browserslist": [
+    "last 1 Chrome versions",
+    "last 1 Firefox versions"
+  ]
 }
