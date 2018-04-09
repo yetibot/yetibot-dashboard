@@ -2,6 +2,14 @@
 
 This is a Next.js / Typescript app that connects to Yetibot's GraphQL API.
 
+## Notes
+
+- Webpack is the build tool. It runs babel to transpile:
+
+  - TypeScript to ES6
+  - babel-plugin-relay to extract graphql queries to runnable code
+  - babel to transpile everything so far down to ES5
+
 ## Auto generated Docs
 
 This project was bootstrapped with [Create React

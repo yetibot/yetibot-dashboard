@@ -39,12 +39,14 @@
     "uglifyjs-webpack-plugin": "^1.1.8",
     "url-loader": "0.6.2",
     "webpack": "3.8.1",
-    "webpack-dev-server": "2.9.4",
-    "webpack-manifest-plugin": "1.3.2",
+    "webpack-dev-server": "3.1.3",
+    "webpack-manifest-plugin": "2.0.0",
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "start": "PORT=3773 node scripts/start.js",
+    "cra-start": "PORT=3773 node scripts/cra-start.js",
+    "start": "PORT=3773 babel-node --extensions '.ts,.tsx' src/index.tsx",
+
     "build": "yarn clean:build && babel src --ignore src/**/__tests__ --out-dir build --extensions '.ts,.tsx'",
     "clean:build": "rm -rf build",
     "test": "node scripts/test.js --env=jsdom",

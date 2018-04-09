@@ -1,15 +1,13 @@
 import * as React from 'react';
 import { Container, Box } from 'bloomer';
-import './App.css';
 
-const logo = require('./logo.svg');
+// const logo = require('./logo.svg');
 
 class App extends React.Component {
   render() {
     return (
       <Container className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Yetibot</h1>
         </header>
         <Box className="App-intro">
