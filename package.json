@@ -1,18 +1,18 @@
 {
-  "name": "babel-7-typescript-example",
-  "version": "1.0.0",
-  "description": "Example TypeScript project built on top of new Babel 7 features",
+  "name": "TODO",
+  "version": "TODO",
+  "description": "TODO",
   "keywords": [
     "babel",
     "babel 7",
     "typescript",
     "react",
-    "example"
+    "yetibot"
   ],
   "main": "./dist/index.js",
-  "repository": "git@github.com:damassi/babel-7-typescript-example.git",
-  "author": "Christopher Pappas <damassi.pappas@gmail.com>",
-  "license": "MIT",
+  "repository": "TODO",
+  "author": "TODO",
+  "license": "TODO",
   "scripts": {
     "prebuild": "yarn clean",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js --progress --profile --color --display-error-details --display-cached",

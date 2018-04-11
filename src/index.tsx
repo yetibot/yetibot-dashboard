@@ -14,7 +14,7 @@ type Foo = {
 }
 
 const props: Foo = {
-  name: 'world',
+  name: 'yetibot',
   foo: () => 'hi',
   bar: () => 2
 }
