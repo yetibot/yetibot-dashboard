@@ -10,9 +10,9 @@
     "yetibot"
   ],
   "main": "./dist/index.js",
-  "repository": "TODO",
-  "author": "TODO",
-  "license": "TODO",
+  "repository": "https://github.com/yetibot/yetibot-dashboard",
+  "author": "Trevor C. Hartman",
+  "license": "Eclipse Public License 1.0",
   "scripts": {
     "prebuild": "yarn clean",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js --progress --profile --color --display-error-details --display-cached",
