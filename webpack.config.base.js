@@ -49,7 +49,7 @@ module.exports = {
       watch: ['./src'] // optional but improves performance (less stat calls)
     }),
     new HtmlWebpackPlugin({
-      title: 'Webpack demo'
+      title: 'Yetibot Dashboard'
     })
   ],
   resolve: {

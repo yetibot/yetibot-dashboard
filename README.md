@@ -2,11 +2,14 @@
 
 # TypeScript + Babel 7 + Webpack
 
-Example TypeScript project built on top of new Babel 7 features. Includes React 16, Jest and Enzyme (for tests).
-Bundeling is done via webpack. Typechecking and linting are done on seperate processes, so runs faster
-on modern multicore cpus. Also JS is always updated, even if Typechecking or linting throws errors.
-This is not the case for production builds.
-For development HMR is on per default, so the dev-experience is as smooth as possible.
+Example TypeScript project built on top of new Babel 7 features. Includes React
+16, Jest and Enzyme (for tests). Bundeling is done via webpack. Typechecking and
+linting are done on seperate processes, so runs faster on modern multicore cpus.
+Also JS is always updated, even if Typechecking or linting throws errors. This
+is not the case for production builds.
+
+For development HMR is on per default, so the dev experience is as smooth as
+possible.
 
 ## Introspect schema
 
