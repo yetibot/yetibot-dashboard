@@ -1,18 +1,19 @@
 {
-  "name": "TODO",
-  "version": "TODO",
-  "description": "TODO",
+  "name": "yetibot-dashboard",
+  "version": "0.1.0",
+  "description": "Dashboard that runs against Yetibot GraphQL API",
   "keywords": [
     "babel",
     "babel 7",
     "typescript",
     "react",
-    "yetibot"
+    "yetibot",
+    "graphql"
   ],
   "main": "./dist/index.js",
   "repository": "https://github.com/yetibot/yetibot-dashboard",
   "author": "Trevor C. Hartman",
-  "license": "Eclipse Public License 1.0",
+  "license": "EPL-1.0",
   "scripts": {
     "prebuild": "yarn clean",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js --progress --profile --color --display-error-details --display-cached",
