@@ -8,6 +8,11 @@ on modern multicore cpus. Also JS is always updated, even if Typechecking or lin
 This is not the case for production builds.
 For development HMR is on per default, so the dev-experience is as smooth as possible.
 
+## Introspect schema
+
+```bash
+apollo-codegen introspect-schema http://localhost:3003/graphql --output schema.json
+```
 
 ## Installation
 
@@ -17,18 +22,17 @@ yarn install
 ```
 
 ## Development
+
 ```sh
 yarn start
 yarn test:watch
 ```
 
 ## Production build
+
 ```sh
 yarn build
 ```
-
-
-If using VSCode, make sure to install the recommended extensions.
 
 ## Example
 
