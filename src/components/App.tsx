@@ -1,26 +1,15 @@
 import React, { Component } from 'react';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import gql from 'graphql-tag';
-import {Adapters} from './Adapters';
+import { Adapters } from './Adapters';
+import { Container, Box } from 'bloomer';
+// import 'bulma/css/bulma.css';
+// import bulma from '~bulma/bulma.sass';
+import 'bulma/bulma.sass';
 
 const client = new ApolloClient({
   uri: 'http://localhost:3003/graphql'
 });
-
-const ADAPTERS = gql`
-  {
-    adapters {
-      platform
-      uuid
-    }
-  }
-`;
-
-console.log(ADAPTERS);
-client
-  .query({ query: ADAPTERS })
-  .then(result => console.log('result!', result));
 
 interface Props {
   name: string;
@@ -30,10 +19,12 @@ export class App extends Component<Props> {
   render () {
     return (
       <ApolloProvider client={client}>
-        <div>
-          hi {this.props.name} from tsx!
-        </div>
-        <Adapters />
+        <Container>
+          <Box>
+            hi {this.props.name} from tsx!
+          </Box>
+          <Adapters />
+        </Container>
       </ApolloProvider>
     );
   }
