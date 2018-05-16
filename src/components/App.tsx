@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+
+import '../style/overrides.scss';
 import {
   Container,
   Menu,
@@ -42,9 +44,13 @@ export class App extends Component<Props> {
         <Router>
           <div>
 
-            <Navbar>
+            <Navbar className='is-black' style={{marginBottom: 20}}>
               <NavbarBrand>
-                <YetibotLogo style={{marginLeft: 60, width: 200, height: 90}} />
+                <NavbarItem>
+                  <Link to='/'>
+                    <YetibotLogo style={{width: 200, height: 28}} />
+                  </Link>
+                </NavbarItem>
               </NavbarBrand>
             </Navbar>
 
