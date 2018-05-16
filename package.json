@@ -81,6 +81,7 @@
     "rimraf": "^2.6.2",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
+    "svg-react-loader": "^0.4.5",
     "thread-loader": "^1.1.2",
     "tslint": "^5.9.1",
     "tslint-config-standard": "^7.0.0",

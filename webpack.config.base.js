@@ -48,7 +48,15 @@ module.exports = {
         "css-loader", // translates CSS into CommonJS
         "sass-loader" // compiles Sass to CSS
       ]
-    }]
+    },
+    {
+      test: /\.svg$/,
+      exclude: /node_modules/,
+      use: [
+        'svg-react-loader'
+      ]
+    }
+    ]
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin({
