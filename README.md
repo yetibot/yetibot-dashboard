@@ -1,8 +1,17 @@
-[![Build Status](https://travis-ci.org/damassi/babel-7-typescript-example.svg?branch=master)](https://travis-ci.org/damassi/babel-7-typescript-example)
+# Yetibot Dashboard
 
-# TypeScript + Babel 7 + Webpack
+## Tech
 
-Example TypeScript project built on top of new Babel 7 features. Includes React
+- TypeScript
+- Apollo GraphQL Client
+- React 16.x
+- Sass
+- Bulma + Bloomer
+- React Router
+
+## TypeScript + Babel 7 + Webpack
+
+TypeScript project built on top of new Babel 7 features. Includes React
 16, Jest and Enzyme (for tests). Bundeling is done via webpack. Typechecking and
 linting are done on seperate processes, so runs faster on modern multicore cpus.
 Also JS is always updated, even if Typechecking or linting throws errors. This
