@@ -8,6 +8,7 @@
     "no-unused-variable": [true, {"ignore-pattern": "^_"}],
     "jsx-no-multiline-js": false,
     "semicolon": [true, "always"],
-    "quotemark": [true, "single"]
+    "quotemark": [true, "single"],
+    "object-curly-spacing": [true, "never"]
   }
 }

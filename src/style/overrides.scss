@@ -5,3 +5,30 @@
 $cyan: #55C4D4;
 
 @import "~bulma/bulma";
+
+html, body {
+  min-height: 100%;
+  background: #ECF0F3;
+}
+
+nav.navbar {
+  margin-bottom: 3rem;
+  border-bottom: 3px solid $cyan;
+  padding-top: 3px;
+}
+
+.menu-list a.is-active {
+  background-color: transparent;
+  color: $cyan;
+  font-weight: 700;
+}
+
+.tiles {
+  margin: 1rem 0;
+
+  .tile.is-ancestor {
+    flex-wrap: wrap;
+  }
+
+}
+
