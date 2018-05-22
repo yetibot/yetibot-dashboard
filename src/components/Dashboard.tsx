@@ -67,7 +67,6 @@ export const Dashboard: React.SFC<DashboardProps> = ({timezoneOffsetHours}) => (
                   </Tile>
                 </Tile>
 
-
                 <Tile isSize={4} isParent={true}>
                   <Tile isChild={true} className='box'>
                     <Title>{stats.history_count}</Title>
@@ -79,6 +78,27 @@ export const Dashboard: React.SFC<DashboardProps> = ({timezoneOffsetHours}) => (
                   <Tile isChild={true} className='box'>
                     <Title>{stats.history_count_today}</Title>
                     <Subtitle>History items today</Subtitle>
+                  </Tile>
+                </Tile>
+
+                <Tile isSize={4} isParent={true}>
+                  <Tile isChild={true} className='box'>
+                    <Title>TODO</Title>
+                    <Subtitle>Aliases</Subtitle>
+                  </Tile>
+                </Tile>
+
+                <Tile isSize={4} isParent={true}>
+                  <Tile isChild={true} className='box'>
+                    <Title>TODO</Title>
+                    <Subtitle>Observers</Subtitle>
+                  </Tile>
+                </Tile>
+
+                <Tile isSize={4} isParent={true}>
+                  <Tile isChild={true} className='box'>
+                    <Title>TODO</Title>
+                    <Subtitle>Cron tasks</Subtitle>
                   </Tile>
                 </Tile>
 

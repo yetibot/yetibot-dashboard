@@ -78,6 +78,9 @@ export class App extends Component<Props, AppState> {
                       <li><NavLink to='/history'>History</NavLink></li>
                       <li><NavLink to='/users'>Users</NavLink></li>
                       <li><NavLink to='/adapters'>Adapters</NavLink></li>
+                      <li><NavLink to='/aliases'>Aliases</NavLink></li>
+                      <li><NavLink to='/observers'>Observers</NavLink></li>
+                      <li><NavLink to='/cron'>Cron tasks</NavLink></li>
                       <li><NavLink to='/repl'>REPL</NavLink></li>
                     </MenuList>
 
@@ -105,10 +108,12 @@ export class App extends Component<Props, AppState> {
                     render={() =>
                       <Dashboard timezoneOffsetHours={this.state.timezoneOffsetHours} />
                     } />
-                  <Route path='/adapters' component={Adapters} />
+                  <Route path='/adapters' render={() =>
+                    <Adapters timezoneOffsetHours={this.state.timezoneOffsetHours} />
+                    } />
                   <Route path='/history' render={() =>
                     <History timezoneOffsetHours={this.state.timezoneOffsetHours} />
-                  } />
+                    } />
                   <Route path='/repl' component={Repl} />
                 </div>
 
