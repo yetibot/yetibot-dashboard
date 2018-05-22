@@ -5,12 +5,19 @@ import {ApolloProvider} from 'react-apollo';
 import '../style/overrides.scss';
 import {
   Container,
+  Control,
+  Field,
+  Icon,
+  Input,
   Menu,
   MenuLabel,
   MenuList,
   Navbar,
   NavbarBrand,
-  NavbarItem } from 'bloomer';
+  NavbarItem ,
+  NavbarStart,
+  NavbarEnd
+} from 'bloomer';
 import {Adapters} from './Adapters';
 import {Repl} from './Repl';
 import {History} from './History';
@@ -55,13 +62,25 @@ export class App extends Component<Props, AppState> {
 
             <Navbar className='is-white is-fixed-top'>
               <Container>
-                <NavbarBrand>
+                <NavbarStart>
+                  <NavbarBrand>
+                    <NavbarItem>
+                      <NavLink activeClassName='is-active' to='/'>
+                        <YetibotLogo style={{width: 120, height: 28}} />
+                      </NavLink>
+                    </NavbarItem>
+                  </NavbarBrand>
+                </NavbarStart>
+                <NavbarEnd>
                   <NavbarItem>
-                    <NavLink activeClassName='is-active' to='/'>
-                      <YetibotLogo style={{width: 120, height: 28}} />
-                    </NavLink>
+                    <Field>
+                      <Control isExpanded hasIcons='left'>
+                        <Input placeholder='Search History' isColor='info' />
+                        <Icon isSize='small' isAlign='left'><span className='fa fa-user' aria-hidden='true'/></Icon>
+                    </Control>
+                    </Field>
                   </NavbarItem>
-                </NavbarBrand>
+                </NavbarEnd>
               </Container>
             </Navbar>
 
