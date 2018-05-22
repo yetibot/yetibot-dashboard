@@ -21,8 +21,10 @@ export const Adapters = () => (
       return (
         <Table isStriped={true} className="is-fullwidth is-hoverable">
           <thead>
-            <th>Platform</th>
-            <th>UUID</th>
+            <tr>
+              <th>Platform</th>
+              <th>UUID</th>
+            </tr>
           </thead>
           <tbody>
             {data.adapters.map(({platform, uuid}) =>

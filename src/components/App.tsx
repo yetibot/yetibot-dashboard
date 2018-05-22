@@ -53,7 +53,7 @@ export class App extends Component<Props, AppState> {
         <Router>
           <div>
 
-            <Navbar className='is-white'>
+            <Navbar className='is-white is-fixed-top'>
               <Container>
                 <NavbarBrand>
                   <NavbarItem>
@@ -68,6 +68,9 @@ export class App extends Component<Props, AppState> {
             <Container className=''>
               <div className='columns'>
                 <div className='column is-2'>
+                  &nbsp;
+                </div>
+                <div className='column is-2' style={{position: 'fixed'}}>
                   <Menu>
                     <MenuLabel>Yetibot</MenuLabel>
                     <MenuList>
@@ -95,7 +98,7 @@ export class App extends Component<Props, AppState> {
 
                 </div>
 
-                <div className='column is-10'>
+                <div id='content-container' className='column is-10'>
                   <Route
                     path='/'
                     exact={true}
