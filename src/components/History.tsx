@@ -30,20 +30,20 @@ const HISTORY = gql`
 
 export const History = ({timezoneOffsetHours}) => (
   <Query query={HISTORY} variables={{timezone_offset_hours: timezoneOffsetHours}}>
-    {({ loading, error, data }) => {
+    {({loading, error, data}) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error {error}</p>;
 
       return (
         <div>
-          <Hero isBold isColor='info' isSize='small'>
+          <Hero isBold={true} isColor='info' isSize='small'>
             <HeroBody>
               <Title>History</Title>
               <Subtitle>Total items {data.stats.history_count}</Subtitle>
             </HeroBody>
           </Hero>
 
-          <Table isStriped={true} className="is-fullwidth is-hoverable">
+          <Table isStriped={true} className='is-fullwidth is-hoverable'>
             <thead>
               <tr>
                 <th>ID</th>
@@ -72,9 +72,6 @@ export const History = ({timezoneOffsetHours}) => (
               })}
             </tbody>
           </Table>
-
-
-          <pre>{JSON.stringify(data, null, 2)}</pre>
         </div>
       );
     }}
