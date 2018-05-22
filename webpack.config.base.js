@@ -43,6 +43,7 @@ module.exports = {
     },
     {
       test: /\.(sass|scss)$/,
+      exclude: /node_modules\/bulma-tooltip/,
       use: [{
         loader: "style-loader"
       }, {

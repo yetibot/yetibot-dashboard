@@ -1,6 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import {Table} from 'bloomer';
 
 const ADAPTERS = gql`
   {
@@ -17,10 +18,21 @@ export const Adapters = () => (
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error {error}</p>;
 
-      return data.adapters.map(({ platform, uuid }) =>
-        <div key={uuid}>
-          {platform} {uuid}
-        </div>
+      return (
+        <Table isStriped={true} className="is-fullwidth is-hoverable">
+          <thead>
+            <th>Platform</th>
+            <th>UUID</th>
+          </thead>
+          <tbody>
+            {data.adapters.map(({platform, uuid}) =>
+              <tr key={uuid}>
+                <td>{platform}</td>
+                <td>{uuid}</td>
+              </tr>
+            )}
+          </tbody>
+        </Table>
       );
     }}
   </Query>

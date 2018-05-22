@@ -1,8 +1,8 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 
-import { Title } from 'bloomer';
+import {Title} from 'bloomer';
 
 const ADAPTERS = gql`
   {
@@ -15,13 +15,13 @@ const ADAPTERS = gql`
 
 export const Repl = () => (
   <Query query={ADAPTERS}>
-    {({ loading, error, data }) => {
+    {({loading, error, data}) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error {error}</p>;
 
       return (
         <div>
-          {data.adapters.map(({ platform, uuid }) =>
+          {data.adapters.map(({platform, uuid}) =>
             <div key={uuid}>
               {platform} {uuid}
             </div>
