@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import ApolloClient from 'apollo-boost';
 import {ApolloProvider} from 'react-apollo';
+import fontawesome from '@fortawesome/fontawesome';
+
+import faSearch from '@fortawesome/fontawesome-free-solid/faSearch';
+fontawesome.library.add(faSearch);
 
 import '../style/overrides.scss';
+
 import {
   Container,
   Control,
@@ -76,7 +81,7 @@ export class App extends Component<Props, AppState> {
                     <Field>
                       <Control isExpanded hasIcons='left'>
                         <Input placeholder='Search History' isColor='info' />
-                        <Icon isSize='small' isAlign='left'><span className='fa fa-user' aria-hidden='true'/></Icon>
+                        <Icon isSize='small' isAlign='left'><span className='fa fa-search' aria-hidden='true'/></Icon>
                     </Control>
                     </Field>
                   </NavbarItem>
