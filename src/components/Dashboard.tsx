@@ -7,12 +7,15 @@ const DASHBOARD = gql`
   query stats($timezone_offset_hours: Int!) {
     stats(timezone_offset_hours: $timezone_offset_hours) {
       uptime
-      adapters
-      users
+      adapter_count
+      user_count
       command_count_today
       command_count
       history_count
       history_count_today
+      alias_count
+      observer_count
+      cron_count
     }
   }
 `;
@@ -41,7 +44,7 @@ export const Dashboard: React.SFC<DashboardProps> = ({timezoneOffsetHours}) => (
 
                 <Tile isSize={4} isParent={true}>
                   <Tile isChild={true} className='box'>
-                    <Title>{stats.adapters}</Title>
+                    <Title>{stats.adapter_count}</Title>
                     <Subtitle>Adapters</Subtitle>
                   </Tile>
                 </Tile>
@@ -62,7 +65,7 @@ export const Dashboard: React.SFC<DashboardProps> = ({timezoneOffsetHours}) => (
 
                 <Tile isSize={4} isParent={true}>
                   <Tile isChild={true} className='box'>
-                    <Title>{stats.users}</Title>
+                    <Title>{stats.user_count}</Title>
                     <Subtitle>Users</Subtitle>
                   </Tile>
                 </Tile>
@@ -83,21 +86,21 @@ export const Dashboard: React.SFC<DashboardProps> = ({timezoneOffsetHours}) => (
 
                 <Tile isSize={4} isParent={true}>
                   <Tile isChild={true} className='box'>
-                    <Title>TODO</Title>
+                    <Title>{stats.alias_count}</Title>
                     <Subtitle>Aliases</Subtitle>
                   </Tile>
                 </Tile>
 
                 <Tile isSize={4} isParent={true}>
                   <Tile isChild={true} className='box'>
-                    <Title>TODO</Title>
+                    <Title>{stats.observer_count}</Title>
                     <Subtitle>Observers</Subtitle>
                   </Tile>
                 </Tile>
 
                 <Tile isSize={4} isParent={true}>
                   <Tile isChild={true} className='box'>
-                    <Title>TODO</Title>
+                    <Title>{stats.cron_count}</Title>
                     <Subtitle>Cron tasks</Subtitle>
                   </Tile>
                 </Tile>

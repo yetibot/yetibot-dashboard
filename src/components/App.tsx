@@ -79,8 +79,8 @@ export class App extends Component<Props, AppState> {
                 <NavbarEnd>
                   <NavbarItem>
                     <Field>
-                      <Control isExpanded hasIcons='left'>
-                        <Input placeholder='Search History' isColor='info' />
+                      <Control isExpanded={true} hasIcons='left'>
+                        <Input placeholder='Search History' isColor='light' />
                         <Icon isSize='small' isAlign='left'><span className='fa fa-search' aria-hidden='true'/></Icon>
                     </Control>
                     </Field>
@@ -89,12 +89,9 @@ export class App extends Component<Props, AppState> {
               </Container>
             </Navbar>
 
-            <Container className=''>
+            <Container id='content-body'>
               <div className='columns'>
                 <div className='column is-2'>
-                  &nbsp;
-                </div>
-                <div className='column is-2' style={{position: 'fixed'}}>
                   <Menu>
                     <MenuLabel>Yetibot</MenuLabel>
                     <MenuList>
