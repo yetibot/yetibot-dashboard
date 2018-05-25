@@ -45,34 +45,3 @@ yarn test:watch
 ```sh
 yarn build
 ```
-
-## Example
-
-```jsx
-// App.tsx
-import React, { Component } from 'react'
-
-interface Props {
-  name: string
-}
-
-export const App extends Component<Props> {
-  render () {
-    return (
-      <div>
-        Hi {this.props.name} from .tsx!
-      </div>
-    )
-  }
-}
-
-// index.ts
-import ReactDOM from 'react-dom/server'
-import { App } from './components/App'
-
-console.log(ReactDOM.renderToString(<App name='leif' />))
-```
-
-```sh
-yarn build
-```
