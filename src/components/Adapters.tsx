@@ -6,7 +6,7 @@ import {Hero, HeroBody, Title, Subtitle, Table} from 'bloomer';
 const ADAPTERS = gql`
   query stats($timezone_offset_hours: Int!) {
     stats(timezone_offset_hours: $timezone_offset_hours) {
-      adapters
+      adapter_count
     }
 
     adapters {
@@ -28,7 +28,7 @@ export const Adapters = ({timezoneOffsetHours}) => (
           <Hero isBold={true} isColor='info' isSize='small'>
             <HeroBody>
               <Title>Adapters</Title>
-              <Subtitle>Configured adapters: {data.stats.adapters}</Subtitle>
+              <Subtitle>Configured adapters: {data.stats.adapter_count}</Subtitle>
             </HeroBody>
           </Hero>
 

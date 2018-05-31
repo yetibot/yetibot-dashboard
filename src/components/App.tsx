@@ -26,6 +26,7 @@ import {
 import {Adapters} from './Adapters';
 import {Repl} from './Repl';
 import {History} from './History';
+import {Users} from './Users';
 import {Dashboard} from './Dashboard';
 import YetibotLogo from '-!svg-react-loader?name=yetibotLogo!../img/yetibot_lambda_blue_with_grey.svg';
 
@@ -134,6 +135,9 @@ export class App extends Component<Props, AppState> {
                     } />
                   <Route path='/history' render={() =>
                     <History timezoneOffsetHours={this.state.timezoneOffsetHours} />
+                    } />
+                  <Route path='/users' render={() =>
+                    <Users timezoneOffsetHours={this.state.timezoneOffsetHours} />
                     } />
                   <Route path='/repl' component={Repl} />
                 </div>
