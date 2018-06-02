@@ -18,7 +18,7 @@ const ADAPTERS = gql`
 
 export const Adapters = ({timezoneOffsetHours}) => (
   <Query query={ADAPTERS} variables={{timezone_offset_hours: timezoneOffsetHours}}>
-    {({ loading, error, data }) => {
+    {({loading, error, data}) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error {error}</p>;
 
@@ -28,7 +28,7 @@ export const Adapters = ({timezoneOffsetHours}) => (
           <Hero isBold={true} isColor='info' isSize='small'>
             <HeroBody>
               <Title>Adapters</Title>
-              <Subtitle>Configured adapters: {data.stats.adapter_count}</Subtitle>
+              <Subtitle>{data.stats.adapter_count} Adapters</Subtitle>
             </HeroBody>
           </Hero>
 
