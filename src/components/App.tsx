@@ -29,6 +29,7 @@ import {History} from './History';
 import {Users} from './Users';
 import {Aliases} from './Aliases';
 import {Observers} from './Observers';
+import {Crons} from './Crons';
 import {Dashboard} from './Dashboard';
 import YetibotLogo from '-!svg-react-loader?name=yetibotLogo!../img/yetibot_lambda_blue_with_grey.svg';
 
@@ -146,6 +147,9 @@ export class App extends Component<Props, AppState> {
                     } />
                   <Route path='/observers' render={() =>
                     <Observers timezoneOffsetHours={this.state.timezoneOffsetHours} />
+                    } />
+                  <Route path='/cron' render={() =>
+                    <Crons timezoneOffsetHours={this.state.timezoneOffsetHours} />
                     } />
                   <Route path='/repl' component={Repl} />
                 </div>

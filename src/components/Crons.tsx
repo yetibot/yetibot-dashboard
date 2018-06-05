@@ -4,29 +4,28 @@ import gql from 'graphql-tag';
 import {Hero, HeroBody, Title, Subtitle, Table} from 'bloomer';
 import * as moment from 'moment';
 
-const OBSERVERS = gql`
+const CRONS = gql`
 
   query stats($timezone_offset_hours: Int!) {
     stats(timezone_offset_hours: $timezone_offset_hours) {
-      observer_count
+      cron_count
     }
 
-    observers{
-      channel_pattern
+    crons {
+      chat_source_adapter
+      chat_source_room
       cmd
-      event_type
-      id
-      pattern
-      user_id
-      user_pattern
       created_at
+      id
+      schedule
+      user_id
     }
 
   }
 `;
 
-export const Observers = ({timezoneOffsetHours}) => (
-  <Query query={OBSERVERS} variables={{timezone_offset_hours: timezoneOffsetHours}}>
+export const Crons = ({timezoneOffsetHours}) => (
+  <Query query={CRONS} variables={{timezone_offset_hours: timezoneOffsetHours}}>
     {({loading, error, data}) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error {error}</p>;
@@ -35,8 +34,8 @@ export const Observers = ({timezoneOffsetHours}) => (
         <div>
           <Hero isBold={true} isColor='info' isSize='small'>
             <HeroBody>
-              <Title>Observers</Title>
-              <Subtitle>{data.stats.observer_count} Observers</Subtitle>
+              <Title>Cron Tasks</Title>
+              <Subtitle>{data.stats.cron_count} Cron Tasks</Subtitle>
             </HeroBody>
           </Hero>
 
@@ -44,27 +43,25 @@ export const Observers = ({timezoneOffsetHours}) => (
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Pattern</th>
+                <th>Schedule</th>
                 <th>Command</th>
-                <th>Event type</th>
-                <th>Channel pattern</th>
-                <th>User pattern</th>
+                <th>Chat source adapter</th>
+                <th>Chat source room</th>
                 <th>Created by</th>
                 <th>Created at</th>
               </tr>
             </thead>
             <tbody>
-              {data.observers.map(observer => {
-                const createdAtUTC = moment.utc(observer.created_at);
+              {data.crons.map(cron => {
+                const createdAtUTC = moment.utc(cron.created_at);
                 return (
-                  <tr key={observer.id}>
-                    <td>{observer.id}</td>
-                    <td>{observer.pattern}</td>
-                    <td>{observer.cmd}</td>
-                    <td>{observer.event_type}</td>
-                    <td>{observer.user_pattern}</td>
-                    <td>{observer.channel_pattern}</td>
-                    <td>{observer.user_id}</td>
+                  <tr key={cron.id}>
+                    <td>{cron.id}</td>
+                    <td>{cron.schedule}</td>
+                    <td>{cron.cmd}</td>
+                    <td>{cron.chat_source_adapter}</td>
+                    <td>{cron.chat_source_room}</td>
+                    <td>{cron.user_id}</td>
                     <td title={createdAtUTC.local().format()}>{createdAtUTC.fromNow()}</td>
                   </tr>
                 );
