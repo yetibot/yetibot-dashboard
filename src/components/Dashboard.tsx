@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import {Tile, Hero, HeroBody, Title, Subtitle} from 'bloomer';
+import {timezoneOffsetHours} from '../util/timezone';
 
 const DASHBOARD = gql`
   query stats($timezone_offset_hours: Int!) {
@@ -21,18 +22,17 @@ const DASHBOARD = gql`
 `;
 
 interface DashboardProps {
-  timezoneOffsetHours: number;
 }
 
-export const Dashboard: React.SFC<DashboardProps> = ({timezoneOffsetHours}) => (
+export const Dashboard: React.SFC<DashboardProps> = () => (
   <Query query={DASHBOARD} variables={{timezone_offset_hours: timezoneOffsetHours}}>
-    {({ loading, error, data }) => {
+    {({loading, error, data}) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error {error}</p>;
       const stats = data.stats;
       return (
         <div>
-          <Hero isBold isColor='info' isSize='small'>
+          <Hero isBold={true} isColor='info' isSize='small'>
             <HeroBody>
               <Title>Dashboard</Title>
               <Subtitle>Uptime {stats.uptime}</Subtitle>
@@ -124,8 +124,6 @@ export const Dashboard: React.SFC<DashboardProps> = ({timezoneOffsetHours}) => (
                 {/*     <Subtitle>Foo bar</Subtitle> */}
                 {/*   </Tile> */}
                 {/* </Tile> */}
-
-
 
             </Tile>
           </div>

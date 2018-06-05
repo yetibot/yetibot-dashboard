@@ -9,13 +9,11 @@ type BarProps = {
 
 type Foo = {
   name: string,
-  foo (): string,
-  bar (props: BarProps): number
+  bar(props: BarProps): number
 };
 
 const props: Foo = {
   name: 'yetibot dashboard',
-  foo: () => 'hi',
   bar: () => 2
 };
 

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ApolloClient from 'apollo-boost';
 import {ApolloProvider} from 'react-apollo';
 import fontawesome from '@fortawesome/fontawesome';
+import {YetibotContext} from '../yetibot-context.js';
 
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch';
 fontawesome.library.add(faSearch);
@@ -37,7 +38,7 @@ import {
   BrowserRouter as Router,
   Route,
   NavLink
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 // import 'bulma/css/bulma.css';
 // import bulma from '~bulma/bulma.sass';
@@ -52,7 +53,6 @@ interface Props {
 }
 
 interface AppState {
-  timezoneOffsetHours: number;
 }
 
 export class App extends Component<Props, AppState> {
@@ -60,105 +60,90 @@ export class App extends Component<Props, AppState> {
   constructor(props) {
     super(props);
     NavLink.defaultProps = {...NavLink.defaultProps, activeClassName: 'is-active'};
-    this.state = {timezoneOffsetHours: new Date().getTimezoneOffset() / 60};
+    this.state = {};
   }
 
   render() {
     return (
       <ApolloProvider client={client}>
-        <Router>
-          <div>
+        <YetibotContext.Provider value={this.state}>
+          <Router>
+            <div>
 
-            <Navbar className='is-white is-fixed-top'>
-              <Container>
-                <NavbarStart>
-                  <NavbarBrand>
+              <Navbar className='is-white is-fixed-top'>
+                <Container>
+                  <NavbarStart>
+                    <NavbarBrand>
+                      <NavbarItem>
+                        <NavLink activeClassName='is-active' to='/'>
+                          <YetibotLogo style={{width: 120, height: 28}} />
+                        </NavLink>
+                      </NavbarItem>
+                    </NavbarBrand>
+                  </NavbarStart>
+                  <NavbarEnd>
                     <NavbarItem>
-                      <NavLink activeClassName='is-active' to='/'>
-                        <YetibotLogo style={{width: 120, height: 28}} />
-                      </NavLink>
+                      <Field>
+                        <Control isExpanded={true} hasIcons='left'>
+                          <Input placeholder='Search History' isColor='light' />
+                          <Icon isSize='small' isAlign='left'><span className='fa fa-search' aria-hidden='true'/></Icon>
+                      </Control>
+                      </Field>
                     </NavbarItem>
-                  </NavbarBrand>
-                </NavbarStart>
-                <NavbarEnd>
-                  <NavbarItem>
-                    <Field>
-                      <Control isExpanded={true} hasIcons='left'>
-                        <Input placeholder='Search History' isColor='light' />
-                        <Icon isSize='small' isAlign='left'><span className='fa fa-search' aria-hidden='true'/></Icon>
-                    </Control>
-                    </Field>
-                  </NavbarItem>
-                </NavbarEnd>
+                  </NavbarEnd>
+                </Container>
+              </Navbar>
+
+              <Container id='content-body'>
+                <div className='columns'>
+                  <div className='column is-2'>
+                    <Menu>
+                      <MenuLabel>Yetibot</MenuLabel>
+                      <MenuList>
+                        <li><NavLink exact={true} to='/'>Dashboard</NavLink></li>
+                        <li><NavLink to='/history'>History</NavLink></li>
+                        <li><NavLink to='/users'>Users</NavLink></li>
+                        <li><NavLink to='/adapters'>Adapters</NavLink></li>
+                        <li><NavLink to='/aliases'>Aliases</NavLink></li>
+                        <li><NavLink to='/observers'>Observers</NavLink></li>
+                        <li><NavLink to='/cron'>Cron tasks</NavLink></li>
+                        <li><NavLink to='/repl'>REPL</NavLink></li>
+                      </MenuList>
+
+                      {/* <MenuLabel>Administration</MenuLabel> */}
+                      {/* <MenuList> */}
+                      {/*   <li><Link to='history'>Configuration</Link></li> */}
+                      {/*   <li><Link to='history'>Permissions</Link></li> */}
+                      {/* </MenuList> */}
+
+                      <MenuLabel>Links</MenuLabel>
+                      <MenuList>
+                        <li><a href='https://yetibot.com'>Yetibot Home</a></li>
+                        <li><a href='https://github.com/yetibot/yetibot'>GitHub</a></li>
+                        <li><a href='https://yetibot.com/archives/'>Blog</a></li>
+                        <li><a href='https://yetibot.com/user-guide/'>Docs</a></li>
+                      </MenuList>
+                    </Menu>
+
+                  </div>
+
+                  <div id='content-container' className='column is-10'>
+                    <Route path='/' exact={true} component={Dashboard} />
+                    <Route path='/adapters' component={Adapters} />
+                    <Route path='/history' component={History} />
+                    <Route path='/users' component={Users} />
+                    <Route path='/aliases' component={Aliases} />
+                    <Route path='/observers' component={Observers} />
+                    <Route path='/cron' component={Crons} />
+                    <Route path='/repl' component={Repl} />
+                  </div>
+
+                </div>
+
               </Container>
-            </Navbar>
-
-            <Container id='content-body'>
-              <div className='columns'>
-                <div className='column is-2'>
-                  <Menu>
-                    <MenuLabel>Yetibot</MenuLabel>
-                    <MenuList>
-                      <li><NavLink exact={true} to='/'>Dashboard</NavLink></li>
-                      <li><NavLink to='/history'>History</NavLink></li>
-                      <li><NavLink to='/users'>Users</NavLink></li>
-                      <li><NavLink to='/adapters'>Adapters</NavLink></li>
-                      <li><NavLink to='/aliases'>Aliases</NavLink></li>
-                      <li><NavLink to='/observers'>Observers</NavLink></li>
-                      <li><NavLink to='/cron'>Cron tasks</NavLink></li>
-                      <li><NavLink to='/repl'>REPL</NavLink></li>
-                    </MenuList>
-
-                    {/* <MenuLabel>Administration</MenuLabel> */}
-                    {/* <MenuList> */}
-                    {/*   <li><Link to='history'>Configuration</Link></li> */}
-                    {/*   <li><Link to='history'>Permissions</Link></li> */}
-                    {/* </MenuList> */}
-
-                    <MenuLabel>Links</MenuLabel>
-                    <MenuList>
-                      <li><a href='https://yetibot.com'>Yetibot Home</a></li>
-                      <li><a href='https://github.com/yetibot/yetibot'>GitHub</a></li>
-                      <li><a href='https://yetibot.com/archives/'>Blog</a></li>
-                      <li><a href='https://yetibot.com/user-guide/'>Docs</a></li>
-                    </MenuList>
-                  </Menu>
-
-                </div>
-
-                <div id='content-container' className='column is-10'>
-                  <Route
-                    path='/'
-                    exact={true}
-                    render={() =>
-                      <Dashboard timezoneOffsetHours={this.state.timezoneOffsetHours} />
-                    } />
-                  <Route path='/adapters' render={() =>
-                    <Adapters timezoneOffsetHours={this.state.timezoneOffsetHours} />
-                    } />
-                  <Route path='/history' render={() =>
-                    <History timezoneOffsetHours={this.state.timezoneOffsetHours} />
-                    } />
-                  <Route path='/users' render={() =>
-                    <Users timezoneOffsetHours={this.state.timezoneOffsetHours} />
-                    } />
-                  <Route path='/aliases' render={() =>
-                    <Aliases timezoneOffsetHours={this.state.timezoneOffsetHours} />
-                    } />
-                  <Route path='/observers' render={() =>
-                    <Observers timezoneOffsetHours={this.state.timezoneOffsetHours} />
-                    } />
-                  <Route path='/cron' render={() =>
-                    <Crons timezoneOffsetHours={this.state.timezoneOffsetHours} />
-                    } />
-                  <Route path='/repl' component={Repl} />
-                </div>
-
-              </div>
-
-            </Container>
-          </div>
-        </Router>
+            </div>
+          </Router>
+        </YetibotContext.Provider>
       </ApolloProvider>
     );
   }

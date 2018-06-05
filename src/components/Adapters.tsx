@@ -1,7 +1,8 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import {Hero, HeroBody, Title, Subtitle, Table} from 'bloomer';
+import {timezoneOffsetHours} from '../util/timezone';
 
 const ADAPTERS = gql`
   query stats($timezone_offset_hours: Int!) {
@@ -16,7 +17,7 @@ const ADAPTERS = gql`
   }
 `;
 
-export const Adapters = ({timezoneOffsetHours}) => (
+export const Adapters = () => (
   <Query query={ADAPTERS} variables={{timezone_offset_hours: timezoneOffsetHours}}>
     {({loading, error, data}) => {
       if (loading) return <p>Loading...</p>;

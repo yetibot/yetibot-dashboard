@@ -3,6 +3,7 @@ import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import {Hero, HeroBody, Title, Subtitle, Table} from 'bloomer';
 import * as moment from 'moment';
+import {timezoneOffsetHours} from '../util/timezone';
 
 const CRONS = gql`
 
@@ -24,7 +25,7 @@ const CRONS = gql`
   }
 `;
 
-export const Crons = ({timezoneOffsetHours}) => (
+export const Crons = () => (
   <Query query={CRONS} variables={{timezone_offset_hours: timezoneOffsetHours}}>
     {({loading, error, data}) => {
       if (loading) return <p>Loading...</p>;
