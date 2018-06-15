@@ -1,4 +1,4 @@
-import { test } from './../index';
+import {test} from './../index';
 
 describe('tests', () => {
   it('works!', () => {

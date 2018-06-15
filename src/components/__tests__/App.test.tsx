@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { App } from './../App';
-import { mount } from 'enzyme';
+import {App} from './../App';
+import {mount} from 'enzyme';
 
 describe('<App />', () => {
   it('works with .tsx components', () => {
