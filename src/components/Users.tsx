@@ -3,6 +3,7 @@ import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import {Hero, HeroBody, Title, Subtitle, Table} from 'bloomer';
 import * as moment from 'moment';
+import {timezoneOffsetHours} from '../util/timezone';
 
 const USERS = gql`
 
@@ -20,7 +21,7 @@ const USERS = gql`
   }
 `;
 
-export const Users = ({timezoneOffsetHours}) => (
+export const Users = () => (
   <Query query={USERS} variables={{timezone_offset_hours: timezoneOffsetHours}}>
     {({loading, error, data}) => {
       if (loading) return <p>Loading...</p>;
