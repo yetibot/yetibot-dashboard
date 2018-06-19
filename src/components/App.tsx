@@ -20,7 +20,7 @@ import {
   MenuList,
   Navbar,
   NavbarBrand,
-  NavbarItem ,
+  NavbarItem,
   NavbarStart,
   NavbarEnd
 } from 'bloomer';
