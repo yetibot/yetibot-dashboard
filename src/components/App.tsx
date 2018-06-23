@@ -47,14 +47,16 @@ import 'bulma/bulma.sass';
 
 declare global {
   interface Window {
-    Yetibot: {endpoint: string};
+    Yetibot: {url: string};
   }
 }
 
-const API_URL = (window && window.Yetibot && window.Yetibot.endpoint) ||
-  'http://localhost:3003/graphql';
+const YETIBOT_URL = (window && window.Yetibot && window.Yetibot.url) ||
+  'http://localhost:3003';
 
-const client = new ApolloClient({uri: API_URL});
+const GRAPHQL_ENDPOINT = `${YETIBOT_URL}/graphql`;
+
+const client = new ApolloClient({uri: GRAPHQL_ENDPOINT});
 
 interface Props {
   name: string;
