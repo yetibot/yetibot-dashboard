@@ -5,7 +5,8 @@ import fontawesome from '@fortawesome/fontawesome';
 import {YetibotContext} from '../yetibot-context.js';
 
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch';
-fontawesome.library.add(faSearch);
+import faExternal from '@fortawesome/fontawesome-free-solid/faExternalLinkAlt';
+fontawesome.library.add(faExternal, faSearch);
 
 import '../style/overrides.scss';
 
@@ -92,7 +93,7 @@ export class App extends Component<Props, AppState> {
                     <NavbarItem>
                       <Field>
                         <Control isExpanded={true} hasIcons='left'>
-                          <Input placeholder='Search History' isColor='light' />
+                          <Input placeholder='Search History (TODO)' isColor='light' />
                           <Icon isSize='small' isAlign='left'><span className='fa fa-search' aria-hidden='true'/></Icon>
                       </Control>
                       </Field>
@@ -125,10 +126,30 @@ export class App extends Component<Props, AppState> {
 
                       <MenuLabel>Links</MenuLabel>
                       <MenuList>
-                        <li><a href='https://yetibot.com'>Yetibot Home</a></li>
-                        <li><a href='https://github.com/yetibot/yetibot'>GitHub</a></li>
-                        <li><a href='https://yetibot.com/archives/'>Blog</a></li>
-                        <li><a href='https://yetibot.com/user-guide/'>Docs</a></li>
+                        <li>
+                          <a href='https://yetibot.com'>
+                            <Icon isSize='small' isAlign='left' className='fa fa-external-link-alt' />
+                            Yetibot.com
+                          </a>
+                        </li>
+                        <li>
+                          <a href='https://github.com/yetibot/yetibot'>
+                            <Icon isSize='small' isAlign='left' className='fa fa-external-link-alt' />
+                            GitHub
+                        </a>
+                        </li>
+                        <li>
+                          <a href='https://yetibot.com/archives/'>
+                            <Icon isSize='small' isAlign='left' className='fa fa-external-link-alt' />
+                            Blog
+                          </a>
+                        </li>
+                        <li>
+                          <a href='https://yetibot.com/user-guide/'>
+                            <Icon isSize='small' isAlign='left' className='fa fa-external-link-alt' />
+                            Docs
+                        </a>
+                      </li>
                       </MenuList>
                     </Menu>
 

@@ -1,6 +1,6 @@
 {
   "name": "yetibot-dashboard",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Dashboard that runs against Yetibot GraphQL API",
   "keywords": [
     "babel",
