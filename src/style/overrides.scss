@@ -41,6 +41,18 @@ nav.navbar {
     flex-wrap: wrap;
   }
 
+  .tile {
+    transition: background-color 200ms linear;
+  }
+
+  a.tile {
+    &:hover {
+      .tile.is-child {
+        background-color: $white-ter;
+      }
+    }
+  }
+
 }
 
 #content-body {
