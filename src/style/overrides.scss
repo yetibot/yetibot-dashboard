@@ -56,5 +56,10 @@ nav.navbar {
 }
 
 #content-body {
-  margin-top: 5rem;
+  @include touch {
+    margin-top: 8rem;
+  }
+  @include desktop {
+    margin-top: 5rem;
+  }
 }
