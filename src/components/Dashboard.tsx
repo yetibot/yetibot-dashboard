@@ -51,12 +51,12 @@ export const Dashboard: React.SFC<DashboardProps> = () => (
                 </Tile>
               </NavLink>
 
-              <Tile isSize={4} isParent={true}>
+              <NavLink className='tile is-parent is-4' to='/history?commands=true'>
                 <Tile isChild={true} className='box'>
                   <Title>{stats.command_count}</Title>
                   <Subtitle>Commands</Subtitle>
                 </Tile>
-              </Tile>
+              </NavLink>
 
               <Tile isSize={4} isParent={true}>
                 <Tile isChild={true} className='box'>

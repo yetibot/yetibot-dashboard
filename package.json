@@ -109,6 +109,7 @@
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
+    "@types/query-string": "^6.1.0",
     "apollo-boost": "^0.1.6",
     "apollo-cache-inmemory": "^1.2.1",
     "apollo-link-http": "^1.5.4",
@@ -117,6 +118,7 @@
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "moment": "^2.22.1",
+    "query-string": "^6.1.0",
     "react": "^16.4.0",
     "react-apollo": "^2.1.4",
     "react-dom": "^16.4.0",
