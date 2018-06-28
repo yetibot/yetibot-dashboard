@@ -1,19 +1,22 @@
 import React, {Component} from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import {Hero, HeroBody, Title, Subtitle, Table} from 'bloomer';
+import {Hero, HeroBody, Title, Subtitle, Table, Checkbox} from 'bloomer';
 import * as moment from 'moment';
 import {timezoneOffsetHours} from '../util/timezone';
 import * as qs from 'query-string';
 
 const HISTORY = gql`
 
-  query hisotry($timezone_offset_hours: Int!, $commands_only: Boolean!) {
+  query hisotry($timezone_offset_hours: Int!, $commands_only: Boolean!, $search_query: String) {
     stats(timezone_offset_hours: $timezone_offset_hours) {
       history_count
     }
 
-    history(limit: 30, offset: 0, commands_only: $commands_only){
+    history(limit: 30, offset: 0,
+      commands_only: $commands_only,
+      search_query: $search_query
+    ) {
       id
       chat_source_adapter
       chat_source_room
@@ -34,7 +37,12 @@ interface Props {
 }
 
 interface State {
-  query: {[k: string]: string};
+  query: {
+    // search
+    s?: string,
+    // command only
+    co: string
+  };
 }
 
 export class History extends Component<Props, State> {
@@ -45,8 +53,9 @@ export class History extends Component<Props, State> {
     this.state = {query};
   }
 
-  updateQueryState = async (queryStateToMerge) => {
-    await this.setState(({query}) =>
+  updateQueryState = (queryStateToMerge) => {
+    // TODO this is async and might not update history correctly
+    this.setState(({query}) =>
       ({query: {...query, ...queryStateToMerge}}));
     history.pushState({}, '', `/history?${qs.stringify(this.state.query)}`);
   }
@@ -58,12 +67,19 @@ export class History extends Component<Props, State> {
 
   isCommandsOnly = () => (this.state.query.co === '1');
 
+  searchQuery = () => {
+    const st = this.state.query.s;
+    // explicity return undefined for null or empty strings
+    return (st) ? st : undefined;
+  }
+
   render() {
     return (
       <Query
         query={HISTORY}
         variables={{
           commands_only: this.isCommandsOnly(),
+          search_query: this.searchQuery(),
           timezone_offset_hours: timezoneOffsetHours
         }}
       >
@@ -78,16 +94,13 @@ export class History extends Component<Props, State> {
                   <Title>History</Title>
                   <Subtitle>Total items {data.stats.history_count}</Subtitle>
                   <div>
-                    <label htmlFor='commandsOnly'>
-                      <input
-                        type='checkbox'
-                        name='commandsOnly'
-                        id='commandsOnly'
-                        checked={this.isCommandsOnly()}
-                        onChange={this.commandsOnlyChange}
-                      />
+                    <Checkbox
+                      id='commandsOnly'
+                      checked={this.isCommandsOnly()}
+                      onChange={this.commandsOnlyChange}
+                    >
                       Commands only
-                    </label>
+                    </Checkbox>
                   </div>
                 </HeroBody>
               </Hero>

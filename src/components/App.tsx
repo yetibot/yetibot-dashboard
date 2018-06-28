@@ -12,10 +12,8 @@ import '../style/overrides.scss';
 
 import {
   Container,
-  Control,
   Field,
   Icon,
-  Input,
   Menu,
   MenuLabel,
   MenuList,
@@ -30,6 +28,7 @@ import {Repl} from './Repl';
 import {History} from './History';
 import {Users} from './Users';
 import {Aliases} from './Aliases';
+import {Search} from './Search';
 import {Observers} from './Observers';
 import {Crons} from './Crons';
 import {Dashboard} from './Dashboard';
@@ -94,10 +93,7 @@ export class App extends Component<Props, AppState> {
                   <NavbarEnd>
                     <NavbarItem>
                       <Field>
-                        <Control isExpanded={true} hasIcons='left'>
-                          <Input placeholder='Search History (TODO)' isColor='light' />
-                          <Icon isSize='small' isAlign='left'><span className='fa fa-search' aria-hidden='true'/></Icon>
-                      </Control>
+                        <Search />
                       </Field>
                     </NavbarItem>
                   </NavbarEnd>
