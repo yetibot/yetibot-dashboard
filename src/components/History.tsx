@@ -34,7 +34,7 @@ interface Props {
 }
 
 interface State {
-  commandsOnly: boolean;
+  query: {[k: string]: string};
 }
 
 export class History extends Component<Props, State> {
@@ -42,24 +42,28 @@ export class History extends Component<Props, State> {
   constructor(props) {
     super(props);
     const query = qs.parse(props.location.search);
-    const commandsOnly = !!query.commands;
-    this.state = {commandsOnly};
+    this.state = {query};
+  }
+
+  updateQueryState = async (queryStateToMerge) => {
+    await this.setState(({query}) =>
+      ({query: {...query, ...queryStateToMerge}}));
+    history.pushState({}, '', `/history?${qs.stringify(this.state.query)}`);
   }
 
   commandsOnlyChange = (e) => {
-    const commandsOnly = e.target.checked;
-    this.setState({commandsOnly});
-    // TODO does react router help here?
-    // TODO put all non-default query params in the url
-    history.pushState({}, '', `/history?commands=${commandsOnly}`);
+    const co = e.target.checked ? '1' : '0';
+    this.updateQueryState({co});
   }
+
+  isCommandsOnly = () => (this.state.query.co === '1');
 
   render() {
     return (
       <Query
         query={HISTORY}
         variables={{
-          commands_only: this.state.commandsOnly,
+          commands_only: this.isCommandsOnly(),
           timezone_offset_hours: timezoneOffsetHours
         }}
       >
@@ -79,7 +83,7 @@ export class History extends Component<Props, State> {
                         type='checkbox'
                         name='commandsOnly'
                         id='commandsOnly'
-                        checked={this.state.commandsOnly}
+                        checked={this.isCommandsOnly()}
                         onChange={this.commandsOnlyChange}
                       />
                       Commands only

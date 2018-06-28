@@ -10,6 +10,8 @@
     "semicolon": [true, "always"],
     "quotemark": [true, "single"],
     "object-curly-spacing": [true, "never"],
-    "space-before-function-paren": [true, "never"]
+    "space-before-function-paren": [true, {
+      "asyncArrow": "always"
+    }]
   }
 }
