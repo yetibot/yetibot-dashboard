@@ -8,7 +8,7 @@ import * as qs from 'query-string';
 
 const HISTORY = gql`
 
-  query hisotry($timezone_offset_hours: Int!, $commands_only: Boolean!, $search_query: String) {
+  query history($timezone_offset_hours: Int!, $commands_only: Boolean!, $search_query: String) {
     stats(timezone_offset_hours: $timezone_offset_hours) {
       history_count
     }
@@ -77,6 +77,7 @@ export class History extends Component<Props, State> {
     return (
       <Query
         query={HISTORY}
+        pollInterval={1000}
         variables={{
           commands_only: this.isCommandsOnly(),
           search_query: this.searchQuery(),
