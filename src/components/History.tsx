@@ -77,7 +77,6 @@ export class History extends Component<Props, State> {
     return (
       <Query
         query={HISTORY}
-        pollInterval={1000}
         variables={{
           commands_only: this.isCommandsOnly(),
           search_query: this.searchQuery(),
