@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import {Hero, HeroBody, Title, Subtitle, Table, Checkbox} from 'bloomer';
+import {Hero, HeroBody, Title, Subtitle, Table, Field} from 'bloomer';
 import * as moment from 'moment';
 import {timezoneOffsetHours} from '../util/timezone';
 import * as qs from 'query-string';
@@ -100,22 +100,23 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
         {({loading, error, data}) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error {error.toString()}</p>;
-
           return (
             <div>
               <Hero isBold={true} isColor='info' isSize='small'>
                 <HeroBody>
                   <Title>History</Title>
                   <Subtitle>Total items {data.stats.history_count}</Subtitle>
-                  <div>
-                    <Checkbox
-                      id='commandsOnly'
+                  <Field>
+                    <input
+                      id='command-only'
+                      className='is-white has-background-color is-checkradio'
+                      type='checkbox'
+                      name='exampleCheckbox'
                       checked={this.isCommandsOnly()}
                       onChange={this.commandsOnlyChange}
-                    >
-                      Commands only
-                    </Checkbox>
-                  </div>
+                    />
+                    <label htmlFor='command-only'>Commands only</label>
+                  </Field>
                 </HeroBody>
               </Hero>
 

@@ -11,6 +11,10 @@ html, body {
   background: #ECF0F3;
 }
 
+label {
+  user-select: none;
+}
+
 nav.navbar {
   margin-bottom: 2rem;
   border-bottom: 3px solid $cyan;
