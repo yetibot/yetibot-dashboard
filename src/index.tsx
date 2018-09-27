@@ -17,7 +17,8 @@ const props: Foo = {
   bar: () => 2
 };
 
-ReactDOM.render(<App {...props} />, document.body.appendChild(document.createElement('div')));
+ReactDOM.render(<App {...props} />,
+                document.body.appendChild(document.createElement('div')));
 
 export const test = {
   isJestWorking: true

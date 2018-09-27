@@ -5,6 +5,8 @@ import {Hero, HeroBody, Title, Subtitle, Table, Checkbox} from 'bloomer';
 import * as moment from 'moment';
 import {timezoneOffsetHours} from '../util/timezone';
 import * as qs from 'query-string';
+import {withRouter, RouteComponentProps} from 'react-router';
+import _ from 'lodash';
 
 const HISTORY = gql`
 
@@ -45,19 +47,30 @@ interface State {
   };
 }
 
-export class History extends Component<Props, State> {
+class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
 
   constructor(props) {
     super(props);
     const query = qs.parse(props.location.search);
     this.state = {query};
+    console.log('HistoryComponent constructor');
   }
 
+  componentDidUpdate(prevProps) {
+    const prevQuery = qs.parse(prevProps.location.search);
+    const query = qs.parse(this.props.location.search);
+    // If the query was updated, propogate the change to History
+    if (!_.isEqual(prevQuery, query)) {
+      this.setState({query});
+    }
+  }
+
+  // store query state on state.query then serialize it and reflect it in
+  // the browser location query string
   updateQueryState = (queryStateToMerge) => {
-    // TODO this is async and might not update history correctly
-    this.setState(({query}) =>
-      ({query: {...query, ...queryStateToMerge}}));
-    history.pushState({}, '', `/history?${qs.stringify(this.state.query)}`);
+    const currentQuery = this.state.query;
+    const newQuery = {...currentQuery, ...queryStateToMerge};
+    this.props.history.push(`/history?${qs.stringify(newQuery)}`);
   }
 
   commandsOnlyChange = (e) => {
@@ -77,6 +90,7 @@ export class History extends Component<Props, State> {
     return (
       <Query
         query={HISTORY}
+        pollInterval={0}
         variables={{
           commands_only: this.isCommandsOnly(),
           search_query: this.searchQuery(),
@@ -85,7 +99,7 @@ export class History extends Component<Props, State> {
       >
         {({loading, error, data}) => {
           if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error {error}</p>;
+          if (error) return <p>Error {error.toString()}</p>;
 
           return (
             <div>
@@ -142,3 +156,5 @@ export class History extends Component<Props, State> {
   }
 
 }
+
+export const History = withRouter(HistoryComponent);

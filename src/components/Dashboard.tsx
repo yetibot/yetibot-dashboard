@@ -30,7 +30,7 @@ export const Dashboard: React.SFC<DashboardProps> = () => (
   <Query query={DASHBOARD} variables={{timezone_offset_hours: timezoneOffsetHours}}>
     {({loading, error, data}) => {
       if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error {error}</p>;
+      if (error) return <p>Error {error.toString()}</p>;
       const stats = data.stats;
       return (
         <div>
