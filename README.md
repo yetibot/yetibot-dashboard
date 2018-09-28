@@ -50,5 +50,5 @@ yarn version --minor
 yarn version --patch
 ```
 
-This creates a commit and git tag. Simply `git push` after and Travis will
+This creates a commit and git tag. Now simply `git push` and Travis will
 deploy the new package.
