@@ -10,13 +10,14 @@ import _ from 'lodash';
 
 const HISTORY = gql`
 
-  query history($timezone_offset_hours: Int!, $commands_only: Boolean!, $search_query: String) {
+  query history($timezone_offset_hours: Int!, $yetibot_only: Boolean!, $commands_only: Boolean!, $search_query: String) {
     stats(timezone_offset_hours: $timezone_offset_hours) {
       history_count
     }
 
     history(limit: 30, offset: 0,
       commands_only: $commands_only,
+      yetibot_only: $yetibot_only,
       search_query: $search_query
     ) {
       id
@@ -43,7 +44,8 @@ interface State {
     // search
     s?: string,
     // command only
-    co: string
+    co: string,
+    yo: string
   };
 }
 
@@ -78,7 +80,14 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
     this.updateQueryState({co});
   }
 
+  yetibotOnlyChange = (e) => {
+    const yo = e.target.checked ? '1' : '0';
+    this.updateQueryState({yo});
+  }
+
   isCommandsOnly = () => (this.state.query.co === '1');
+
+  isYetibotOnly = () => (this.state.query.yo === '1');
 
   searchQuery = () => {
     const st = this.state.query.s;
@@ -93,6 +102,7 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
         pollInterval={0}
         variables={{
           commands_only: this.isCommandsOnly(),
+          yetibot_only: this.isYetibotOnly(),
           search_query: this.searchQuery(),
           timezone_offset_hours: timezoneOffsetHours
         }}
@@ -106,17 +116,28 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
                 <HeroBody>
                   <Title>History</Title>
                   <Subtitle>Total items {data.stats.history_count}</Subtitle>
-                  <Field>
-                    <input
-                      id='command-only'
-                      className='is-white has-background-color is-checkradio'
-                      type='checkbox'
-                      name='exampleCheckbox'
-                      checked={this.isCommandsOnly()}
-                      onChange={this.commandsOnlyChange}
-                    />
-                    <label htmlFor='command-only'>Commands only</label>
-                  </Field>
+                  <div className='field is-horizontal'>
+                    <Field>
+                      <input
+                        id='command-only'
+                        className='is-white has-background-color is-checkradio'
+                        type='checkbox'
+                        checked={this.isCommandsOnly()}
+                        onChange={this.commandsOnlyChange}
+                      />
+                      <label htmlFor='command-only'>Commands only</label>
+                    </Field>
+                    <Field>
+                      <input
+                        id='yetibot-only'
+                        className='is-white has-background-color is-checkradio'
+                        type='checkbox'
+                        checked={this.isYetibotOnly()}
+                        onChange={this.yetibotOnlyChange}
+                      />
+                      <label htmlFor='yetibot-only'>Yetibot only</label>
+                    </Field>
+                  </div>
                 </HeroBody>
               </Hero>
 

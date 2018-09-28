@@ -11,8 +11,9 @@ html, body {
   background: #ECF0F3;
 }
 
-label {
+.is-checkradio[type=checkbox]+label, .is-checkradio[type=radio]+label {
   user-select: none;
+  margin-left: 0;
 }
 
 nav.navbar {
@@ -66,4 +67,8 @@ nav.navbar {
   @include desktop {
     margin-top: 5rem;
   }
+}
+
+.horizontal-items {
+  flex: 1
 }
