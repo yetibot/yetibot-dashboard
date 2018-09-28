@@ -1,6 +1,7 @@
 # Yetibot Dashboard
 
-A static dashboard that runs against Yetibot's GraphQL API.
+A static dashboard that runs against Yetibot's GraphQL API. This npm module is
+consumed and served by [yetibot.core](https://github.com/yetibot/yetibot.core).
 
 ## Tech
 
@@ -37,4 +38,14 @@ yarn test:watch
 
 ```sh
 yarn build
+```
+
+## Publish
+
+Use one of:
+
+```bash
+yarn publish --major
+yarn publish --minor
+yarn publish --patch
 ```
