@@ -42,10 +42,13 @@ yarn build
 
 ## Publish
 
-Use one of:
+NPM package is auto-published by Travis on all tags. To publish, use one of:
 
 ```bash
-yarn publish --major
-yarn publish --minor
-yarn publish --patch
+yarn version --major
+yarn version --minor
+yarn version --patch
 ```
+
+This creates a commit and git tag. Simply `git push` after and Travis will
+deploy the new package.
