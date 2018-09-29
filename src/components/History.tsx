@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import {Hero, HeroBody, Title, Subtitle, Table, Field} from 'bloomer';
+import {Hero, HeroBody, Title, Subtitle, Table, Field, FieldLabel, Icon, Control, Input, Notification} from 'bloomer';
 import * as moment from 'moment';
 import {timezoneOffsetHours} from '../util/timezone';
 import * as qs from 'query-string';
 import {withRouter, RouteComponentProps} from 'react-router';
+import {NavLink} from 'react-router-dom';
 import _ from 'lodash';
 
 const HISTORY = gql`
@@ -58,6 +59,8 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
     console.log('HistoryComponent constructor');
   }
 
+  hasFiltersSet = () => !(_.isEmpty(this.state.query));
+
   componentDidUpdate(prevProps) {
     const prevQuery = qs.parse(prevProps.location.search);
     const query = qs.parse(this.props.location.search);
@@ -108,43 +111,71 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
         }}
       >
         {({loading, error, data}) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error {error.toString()}</p>;
+          if (loading) return <Notification isColor='info'>Loading...</Notification>;
+          if (error) return <Notification isColor='danger'>{error.message}</Notification>;
           return (
             <div>
               <Hero isBold={true} isColor='info' isSize='small'>
                 <HeroBody>
                   <Title>History</Title>
                   <Subtitle>Total items {data.stats.history_count}</Subtitle>
-                  <div className='field is-horizontal'>
-                    <Field>
-                      <input
-                        id='command-only'
-                        className='is-white has-background-color is-checkradio'
-                        type='checkbox'
-                        checked={this.isCommandsOnly()}
-                        onChange={this.commandsOnlyChange}
-                      />
-                      <label htmlFor='command-only'>Commands only</label>
-                    </Field>
-                    <Field>
-                      <input
-                        id='yetibot-only'
-                        className='is-white has-background-color is-checkradio'
-                        type='checkbox'
-                        checked={this.isYetibotOnly()}
-                        onChange={this.yetibotOnlyChange}
-                      />
-                      <label htmlFor='yetibot-only'>Yetibot only</label>
-                    </Field>
-                  </div>
                 </HeroBody>
               </Hero>
+
+              <div className='history-filters'>
+                <Field isHorizontal={true}>
+                  <Field isHorizontal={true} className='checkbox-field'>
+                    <input
+                      id='command-only'
+                      className='is-small is-white has-background-color is-checkradio'
+                      type='checkbox'
+                      checked={this.isCommandsOnly()}
+                      onChange={this.commandsOnlyChange}
+                    />
+                    <label htmlFor='command-only'>Commands only</label>
+                  </Field>
+                  <Field isHorizontal={true} className='checkbox-field'>
+                    <input
+                      id='yetibot-only'
+                      className='is-small is-white has-background-color is-checkradio'
+                      type='checkbox'
+                      checked={this.isYetibotOnly()}
+                      onChange={this.yetibotOnlyChange}
+                    />
+                    <label htmlFor='yetibot-only'>Yetibot only</label>
+                  </Field>
+                  <Field isHorizontal={true}>
+                    <FieldLabel isSize='small'>Channel</FieldLabel>
+                    <Control hasIcons='left'>
+                      <Input className='is-info' isSize='small' />
+                      <Icon isSize='small' isAlign='left'>
+                        <span className='fa fa-hashtag' aria-hidden='true'/>
+                      </Icon>
+                    </Control>
+                  </Field>
+                  <Field isHorizontal={true}>
+                    <FieldLabel isSize='small'>User</FieldLabel>
+                    <Control hasIcons='left'>
+                      <Input className='is-info' isSize='small' />
+                      <Icon isSize='small' isAlign='left'>
+                        <span className='fa fa-user' aria-hidden='true'/>
+                      </Icon>
+                    </Control>
+                  </Field>
+                </Field>
+                {this.hasFiltersSet()
+                  ? (<NavLink className='button is-small is-light' to='/history'>
+                      <Icon isSize='small' isAlign='left'>
+                        <span className='fa fa-times-circle' aria-hidden='true'/>
+                      </Icon>
+                      <span>Reset filters</span>
+                      </NavLink>)
+                  : null}
+              </div>
 
               <Table isStriped={true} className='is-fullwidth is-hoverable'>
                 <thead>
                   <tr>
-                    <th>ID</th>
                     <th>User</th>
                     <th>Body</th>
                     <th>Channel</th>
@@ -158,9 +189,8 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
                     const createdAtUTC = moment.utc(historyItem.created_at);
                     return (
                       <tr key={historyItem.id}>
-                        <td>{historyItem.id}</td>
                         <td title={`User ID ${historyItem.user_id}`}>{historyItem.user_name}</td>
-                        <td>{historyItem.body}</td>
+                        <td title={historyItem.id}>{historyItem.body}</td>
                         <td title={`Adapter ${historyItem.chat_source_adapter}`}>{historyItem.chat_source_room}</td>
                         <td title={createdAtUTC.local().format()}>{createdAtUTC.fromNow()}</td>
                         <td>{(historyItem.is_command) ? '✅' : ''}</td>

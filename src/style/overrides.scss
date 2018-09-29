@@ -72,3 +72,23 @@ nav.navbar {
 .horizontal-items {
   flex: 1
 }
+
+.history-filters {
+  background: $light;
+  padding: 20px;
+
+  .checkbox-field {
+    margin-top: -4px;
+  }
+
+  .field-label {
+    margin-right: 0.6rem;
+  }
+  .control {
+    margin-right: 0.8rem;
+  }
+}
+
+table.is-fullwidth {
+  table-layout: fixed;
+}

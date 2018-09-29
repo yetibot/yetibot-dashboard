@@ -5,8 +5,11 @@ import fontawesome from '@fortawesome/fontawesome';
 import {YetibotContext} from '../yetibot-context.js';
 
 import faSearch from '@fortawesome/fontawesome-free-solid/faSearch';
+import faUser from '@fortawesome/fontawesome-free-solid/faUser';
+import faTimesCircle from '@fortawesome/fontawesome-free-solid/faTimesCircle';
+import faHashtag from '@fortawesome/fontawesome-free-solid/faHashtag';
 import faExternal from '@fortawesome/fontawesome-free-solid/faExternalLinkAlt';
-fontawesome.library.add(faExternal, faSearch);
+fontawesome.library.add(faExternal, faSearch, faUser, faTimesCircle, faHashtag);
 
 import '../style/overrides.scss';
 
