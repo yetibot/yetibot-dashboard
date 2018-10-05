@@ -162,15 +162,15 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
                       </Icon>
                     </Control>
                   </Field>
+                  {this.hasFiltersSet()
+                    ? (<NavLink className='button is-small is-light' to='/history'>
+                         <Icon isSize='small' isAlign='left'>
+                           <span className='fa fa-times-circle' aria-hidden='true'/>
+                         </Icon>
+                         <span>Reset</span>
+                       </NavLink>)
+                         : null}
                 </Field>
-                {this.hasFiltersSet()
-                  ? (<NavLink className='button is-small is-light' to='/history'>
-                      <Icon isSize='small' isAlign='left'>
-                        <span className='fa fa-times-circle' aria-hidden='true'/>
-                      </Icon>
-                      <span>Reset filters</span>
-                      </NavLink>)
-                  : null}
               </div>
 
               <Table isStriped={true} className='is-fullwidth is-hoverable'>

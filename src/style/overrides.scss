@@ -87,6 +87,12 @@ nav.navbar {
   .control {
     margin-right: 0.8rem;
   }
+
+  > .field.is-horizontal {
+    margin-bottom: -16px;
+  }
+
+
 }
 
 table.is-fullwidth {
