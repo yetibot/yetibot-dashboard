@@ -30,6 +30,7 @@ import {Adapters} from './Adapters';
 import {Repl} from './Repl';
 import {History} from './History';
 import {Users} from './Users';
+import {User} from './User';
 import {Aliases} from './Aliases';
 import {Search} from './Search';
 import {Observers} from './Observers';
@@ -87,7 +88,7 @@ export class App extends Component<Props, AppState> {
                   <NavbarStart>
                     <NavbarBrand>
                       <NavbarItem>
-                        <NavLink activeClassName='is-active' to='/'>
+                        <NavLink to='/'>
                           <YetibotLogo style={{width: 120, height: 28}} />
                         </NavLink>
                       </NavbarItem>
@@ -160,7 +161,8 @@ export class App extends Component<Props, AppState> {
                     <Route path='/' exact={true} component={Dashboard} />
                     <Route path='/adapters' component={Adapters} />
                     <Route path='/history' component={History} />
-                    <Route path='/users' component={Users} />
+                    <Route path='/users' exact={true} component={Users} />
+                    <Route path='/user/:id' component={User} />
                     <Route path='/aliases' component={Aliases} />
                     <Route path='/observers' component={Observers} />
                     <Route path='/cron' component={Crons} />

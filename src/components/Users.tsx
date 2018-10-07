@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import {Hero, HeroBody, Title, Subtitle, Table} from 'bloomer';
 import * as moment from 'moment';
 import {timezoneOffsetHours} from '../util/timezone';
+import {NavLink} from 'react-router-dom';
 
 const USERS = gql`
 
@@ -51,7 +52,11 @@ export const Users = () => (
                 return (
                   <tr key={user.id}>
                     <td>{user.id}</td>
-                    <td>{user.username}</td>
+                    <td>
+                      <NavLink to={`/user/${user.id}`}>
+                        {user.username}
+                      </NavLink>
+                    </td>
                     <td>{user.is_active ? '✅' : ''}</td>
                     <td title={lastActiveUTC.local().format()}>{lastActiveUTC.fromNow()}</td>
                   </tr>
