@@ -1,14 +1,16 @@
 import React, {Component} from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import {Hero, HeroBody, Title, Subtitle, Table, Field, FieldLabel, Icon, Control, Input, Notification} from 'bloomer';
+import {Hero, HeroBody, Title, Subtitle, Table, Field,
+  // FieldLabel, Control, Input,
+  Icon, Notification} from 'bloomer';
 import * as moment from 'moment';
 import {timezoneOffsetHours} from '../util/timezone';
 import * as qs from 'query-string';
 import {withRouter, RouteComponentProps} from 'react-router';
 import {NavLink} from 'react-router-dom';
 import _ from 'lodash';
-import Select from 'react-select';
+// import Select from 'react-select';
 
 const HISTORY = gql`
 
@@ -38,13 +40,13 @@ const HISTORY = gql`
   }
 `;
 
-const customStyles = {
-  control: (base) => ({
-    ...base,
-    height: '24px',
-    'min-height': '24px'
-  })
-};
+// const customStyles = {
+//   control: (base) => ({
+//     ...base,
+//     height: '24px',
+//     'min-height': '24px'
+//   })
+// };
 
 interface Props {
 }
@@ -155,7 +157,7 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
                   </Field>
                   <Field isHorizontal={true}>
                     {
-                      //<FieldLabel isSize='small'>Channel</FieldLabel>
+                      // <FieldLabel isSize='small'>Channel</FieldLabel>
                       // <Select
                       // styles={customStyles}
                       // options={[{label: 'one one one'}, {label: 'two two two'}]} />
