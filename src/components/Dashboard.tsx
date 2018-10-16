@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import {Tile, Hero, HeroBody, Title, Subtitle} from 'bloomer';
+import {Tile, Hero, HeroBody, Title, Subtitle, Notification} from 'bloomer';
 import {timezoneOffsetHours} from '../util/timezone';
 
 import {NavLink} from 'react-router-dom';
@@ -29,8 +29,8 @@ interface DashboardProps {
 export const Dashboard: React.SFC<DashboardProps> = () => (
   <Query query={DASHBOARD} variables={{timezone_offset_hours: timezoneOffsetHours}}>
     {({loading, error, data}) => {
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error {error.toString()}</p>;
+      if (loading) return <Notification isColor='info'>Loading...</Notification>;
+      if (error) return <Notification isColor='danger'>{error.message}</Notification>;
       const stats = data.stats;
       return (
         <div>

@@ -8,6 +8,7 @@ import * as qs from 'query-string';
 import {withRouter, RouteComponentProps} from 'react-router';
 import {NavLink} from 'react-router-dom';
 import _ from 'lodash';
+import Select from 'react-select';
 
 const HISTORY = gql`
 
@@ -36,6 +37,14 @@ const HISTORY = gql`
     }
   }
 `;
+
+const customStyles = {
+  control: (base) => ({
+    ...base,
+    height: '24px',
+    'min-height': '24px'
+  })
+};
 
 interface Props {
 }
@@ -145,22 +154,24 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
                     <label htmlFor='yetibot-only'>Yetibot only</label>
                   </Field>
                   <Field isHorizontal={true}>
-                    <FieldLabel isSize='small'>Channel</FieldLabel>
-                    <Control hasIcons='left'>
-                      <Input className='is-info' isSize='small' />
-                      <Icon isSize='small' isAlign='left'>
-                        <span className='fa fa-hashtag' aria-hidden='true'/>
-                      </Icon>
-                    </Control>
+                    {
+                      //<FieldLabel isSize='small'>Channel</FieldLabel>
+                      // <Select
+                      // styles={customStyles}
+                      // options={[{label: 'one one one'}, {label: 'two two two'}]} />
+                     }
                   </Field>
                   <Field isHorizontal={true}>
-                    <FieldLabel isSize='small'>User</FieldLabel>
-                    <Control hasIcons='left'>
-                      <Input className='is-info' isSize='small' />
-                      <Icon isSize='small' isAlign='left'>
-                        <span className='fa fa-user' aria-hidden='true'/>
-                      </Icon>
-                    </Control>
+                    {
+                      // <FieldLabel isSize='small'>User</FieldLabel>
+                      // <Control hasIcons='left'>
+                      //   <Input className='is-info' isSize='small' />
+                      //   <Icon isSize='small' isAlign='left'>
+                      //     <span className='fa fa-user' aria-hidden='true'/>
+                      //   </Icon>
+                      // </Control>
+
+                    }
                   </Field>
                   {this.hasFiltersSet()
                     ? (<NavLink className='button is-small is-light' to='/history'>

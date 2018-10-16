@@ -1,7 +1,7 @@
 import React from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import {Hero, HeroBody, Title, Subtitle, Table} from 'bloomer';
+import {Hero, HeroBody, Title, Subtitle, Table, Notification} from 'bloomer';
 import * as moment from 'moment';
 import {timezoneOffsetHours} from '../util/timezone';
 import {NavLink} from 'react-router-dom';
@@ -25,8 +25,8 @@ const USERS = gql`
 export const Users = () => (
   <Query query={USERS} variables={{timezone_offset_hours: timezoneOffsetHours}}>
     {({loading, error, data}) => {
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error {error}</p>;
+      if (loading) return <Notification isColor='info'>Loading...</Notification>;
+      if (error) return <Notification isColor='danger'>{error.message}</Notification>;
 
       return (
         <div>

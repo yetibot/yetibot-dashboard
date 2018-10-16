@@ -4,11 +4,10 @@ import gql from 'graphql-tag';
 import {Hero, HeroBody, Title, Notification} from 'bloomer';
 import {withRouter, RouteComponentProps} from 'react-router';
 
-const USER = gql`
-  query user($user_id: String!) {
-    user(id: $user_id) {
+const HISTORY = gql`
+  query history_item($history_id: String!) {
+    history_item(id: $history_id) {
       id
-      username
     }
   }
 `;
@@ -20,21 +19,21 @@ interface Props {
 interface State {
 }
 
-class UserComponent extends Component<RouteComponentProps<Props>, State> {
+class HistoryItemComponent extends Component<RouteComponentProps<Props>, State> {
 
   render() {
     return (
-      <Query query={USER} variables={{user_id: this.props.match.params.id}}>
+      <Query query={HISTORY} variables={{history_id: this.props.match.params.id}}>
         {({loading, error, data}) => {
           if (loading) return <Notification isColor='info'>Loading...</Notification>;
           if (error) return <Notification isColor='danger'>{error.message}</Notification>;
 
-          if (data.user) {
+          if (data.history) {
             return (
               <div>
                 <Hero isBold={true} isColor='info' isSize='small'>
                   <HeroBody>
-                    <Title>{data.user.username}</Title>
+                    <Title>{data.history.historyname}</Title>
                   </HeroBody>
                 </Hero>
               </div>
@@ -44,7 +43,7 @@ class UserComponent extends Component<RouteComponentProps<Props>, State> {
               <div>
                 <Hero isBold={true} isColor='danger' isSize='small'>
                   <HeroBody>
-                    <Title>User not found</Title>
+                    <Title>History not found</Title>
                   </HeroBody>
                 </Hero>
               </div>
@@ -56,4 +55,4 @@ class UserComponent extends Component<RouteComponentProps<Props>, State> {
   }
 }
 
-export const User = withRouter(UserComponent);
+export const HistoryItem = withRouter(HistoryItemComponent);

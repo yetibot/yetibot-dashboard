@@ -1,7 +1,7 @@
 import React from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import {Hero, HeroBody, Title, Subtitle, Table} from 'bloomer';
+import {Hero, HeroBody, Title, Subtitle, Table, Notification} from 'bloomer';
 import * as moment from 'moment';
 import {timezoneOffsetHours} from '../util/timezone';
 
@@ -26,8 +26,8 @@ const ALIASES = gql`
 export const Aliases = () => (
   <Query query={ALIASES} variables={{timezone_offset_hours: timezoneOffsetHours}}>
     {({loading, error, data}) => {
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error {error}</p>;
+      if (loading) return <Notification isColor='info'>Loading...</Notification>;
+      if (error) return <Notification isColor='danger'>{error.message}</Notification>;
 
       return (
         <div>
@@ -41,7 +41,6 @@ export const Aliases = () => (
           <Table isStriped={true} className='is-fullwidth is-hoverable'>
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Alias</th>
                 <th>Command</th>
                 <th>Created by</th>
@@ -53,8 +52,7 @@ export const Aliases = () => (
                 const createdAtUTC = moment.utc(alias.created_at);
                 return (
                   <tr key={alias.id}>
-                    <td>{alias.id}</td>
-                    <td>{alias.cmd}</td>
+                    <td title={alias.id}>{alias.cmd}</td>
                     <td>{alias.cmd_name}</td>
                     <td>{alias.user_id}</td>
                     <td title={createdAtUTC.local().format()}>{createdAtUTC.fromNow()}</td>
