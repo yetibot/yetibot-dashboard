@@ -1,3 +1,52 @@
+# yetibot-dashboard
+
+A static dashboard that runs against Yetibot's GraphQL API. This npm module is
+consumed and served by [yetibot.core](https://github.com/yetibot/yetibot.core).
+
+[![npm](https://img.shields.io/npm/v/yetibot-dashboard.svg?style=for-the-badge)](https://www.npmjs.com/package/yetibot-dashboard)
+
+## Tech
+
+- TypeScript
+- Apollo Client
+- React 16.x
+- Sass
+- Font Awesome 5
+- Bulma + Bloomer
+- React Router
+
+## Introspect schema
+
+(This doesn't work currently - use apollo CLI to get it working again).
+
+```bash
+apollo-codegen introspect-schema http://localhost:3003/graphql --output schema.json
+```
+
+## Development
+
+```sh
+yarn start
+```
+
+## Production build
+
+```sh
+yarn build
+```
+
+## Publish
+
+NPM package is auto-published by Travis on all tags. To publish, use one of:
+
+```bash
+yarn version --major
+yarn version --minor
+yarn version --patch
+```
+
+This creates a commit and git tag. Now simply `git push` and Travis will
+deploy the new package.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
