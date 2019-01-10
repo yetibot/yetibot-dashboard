@@ -13,22 +13,22 @@ interface State {
 
 class SearchComponent extends Component<RouteComponentProps<Props>, State> {
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     const query = qs.parse(props.location.search);
-    this.state = {search: query.s || ''};
+    this.state = {search: (query.s as string) || ''};
     console.log('SearchComponent', query);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: any) {
     const prevQuery = qs.parse(prevProps.location.search);
     const query = qs.parse(this.props.location.search);
     if (!_.isEqual(prevQuery, query)) {
-      this.setState({search: query.s || ''});
+      this.setState({search: (query.s as string) || ''});
     }
   }
 
-  searchChange = (e) => {
+  searchChange = (e: any) => {
     const query = e.target.value;
     this.setState({search: query});
     console.log('searchChange', query);

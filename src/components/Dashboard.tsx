@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {Component} from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import {Tile, Hero, HeroBody, Title, Subtitle, Notification} from 'bloomer';
@@ -26,112 +26,118 @@ const DASHBOARD = gql`
 interface DashboardProps {
 }
 
-export const Dashboard: React.SFC<DashboardProps> = () => (
-  <Query query={DASHBOARD} variables={{timezone_offset_hours: timezoneOffsetHours}}>
-    {({loading, error, data}) => {
-      if (loading) return <Notification isColor='info'>Loading...</Notification>;
-      if (error) return <Notification isColor='danger'>{error.message}</Notification>;
-      const stats = data.stats;
-      return (
-        <div>
-          <Hero isBold={true} isColor='info' isSize='small'>
-            <HeroBody>
-              <Title>Dashboard</Title>
-              <Subtitle>Uptime {stats.uptime}</Subtitle>
-            </HeroBody>
-          </Hero>
+export class Dashboard extends Component<DashboardProps> {
 
-          <div className='tiles'>
-            <Tile isAncestor={true} hasTextAlign='centered'>
+  render() {
+    return (
 
-              <NavLink className='tile is-parent is-4' to='/adapters'>
-                <Tile isChild={true} className='box'>
-                  <Title>{stats.adapter_count}</Title>
-                  <Subtitle>Adapters</Subtitle>
+      <Query query={DASHBOARD} variables={{timezone_offset_hours: timezoneOffsetHours}}>
+        {({loading, error, data}) => {
+          if (loading) return <Notification isColor='info'>Loading...</Notification>;
+          if (error) return <Notification isColor='danger'>{error.message}</Notification>;
+          const stats = data.stats;
+          return (
+            <div>
+              <Hero isBold={true} isColor='info' isSize='small'>
+                <HeroBody>
+                  <Title>Dashboard</Title>
+                  <Subtitle>Uptime {stats.uptime}</Subtitle>
+                </HeroBody>
+              </Hero>
+
+              <div className='tiles'>
+                <Tile isAncestor={true} hasTextAlign='centered'>
+
+                  <NavLink className='tile is-parent is-4' to='/adapters'>
+                    <Tile isChild={true} className='box'>
+                      <Title>{stats.adapter_count}</Title>
+                      <Subtitle>Adapters</Subtitle>
+                    </Tile>
+                  </NavLink>
+
+                  <NavLink className='tile is-parent is-4' to='/history?co=1'>
+                    <Tile isChild={true} className='box'>
+                      <Title>{stats.command_count}</Title>
+                      <Subtitle>Commands</Subtitle>
+                    </Tile>
+                  </NavLink>
+
+                  <Tile isSize={4} isParent={true}>
+                    <Tile isChild={true} className='box'>
+                      <Title>{stats.command_count_today}</Title>
+                      <Subtitle>Commands today</Subtitle>
+                    </Tile>
+                  </Tile>
+
+                  <NavLink className='tile is-parent is-4' to='/users'>
+                    <Tile isChild={true} className='box'>
+                      <Title>{stats.user_count}</Title>
+                      <Subtitle>Users</Subtitle>
+                    </Tile>
+                  </NavLink>
+
+                  <NavLink className='tile is-parent is-4' to='/history'>
+                    <Tile isChild={true} className='box'>
+                      <Title>{stats.history_count}</Title>
+                      <Subtitle>History items</Subtitle>
+                    </Tile>
+                  </NavLink>
+
+                  <Tile isSize={4} isParent={true}>
+                    <Tile isChild={true} className='box'>
+                      <Title>{stats.history_count_today}</Title>
+                      <Subtitle>History items today</Subtitle>
+                    </Tile>
+                  </Tile>
+
+                  <NavLink className='tile is-parent is-4' to='/aliases'>
+                    <Tile isChild={true} className='box'>
+                      <Title>{stats.alias_count}</Title>
+                      <Subtitle>Aliases</Subtitle>
+                    </Tile>
+                  </NavLink>
+
+                  <NavLink className='tile is-parent is-4' to='/observers'>
+                    <Tile isChild={true} className='box'>
+                      <Title>{stats.observer_count}</Title>
+                      <Subtitle>Observers</Subtitle>
+                    </Tile>
+                  </NavLink>
+
+                  <NavLink className='tile is-parent is-4' to='/cron'>
+                    <Tile isChild={true} className='box'>
+                      <Title>{stats.cron_count}</Title>
+                      <Subtitle>Cron tasks</Subtitle>
+                    </Tile>
+                  </NavLink>
+
+                  {/* These need a different way to be displayed - maybe charts
+                  * Other ideas:
+                  * - Number of Errors
+                  * - Average Yetibot response time
+                  */}
+
+                  {/* <Tile isSize={4} isParent={true}> */}
+                  {/*   <Tile isChild={true} className='box'> */}
+                  {/*     <Title>34 / 55</Title> */}
+                  {/*     <Subtitle>Configured commmands / available commands</Subtitle> */}
+                  {/*   </Tile> */}
+                  {/* </Tile> */}
+
+                  {/* <Tile isSize={4} isParent={true}> */}
+                  {/*   <Tile isChild={true} className='box'> */}
+                  {/*     <Title>Top 3 Commands</Title> */}
+                  {/*     <Subtitle>Foo bar</Subtitle> */}
+                  {/*   </Tile> */}
+                  {/* </Tile> */}
+
                 </Tile>
-              </NavLink>
+              </div>
 
-              <NavLink className='tile is-parent is-4' to='/history?co=1'>
-                <Tile isChild={true} className='box'>
-                  <Title>{stats.command_count}</Title>
-                  <Subtitle>Commands</Subtitle>
-                </Tile>
-              </NavLink>
-
-              <Tile isSize={4} isParent={true}>
-                <Tile isChild={true} className='box'>
-                  <Title>{stats.command_count_today}</Title>
-                  <Subtitle>Commands today</Subtitle>
-                </Tile>
-              </Tile>
-
-              <NavLink className='tile is-parent is-4' to='/users'>
-                <Tile isChild={true} className='box'>
-                  <Title>{stats.user_count}</Title>
-                  <Subtitle>Users</Subtitle>
-                </Tile>
-              </NavLink>
-
-              <NavLink className='tile is-parent is-4' to='/history'>
-                <Tile isChild={true} className='box'>
-                  <Title>{stats.history_count}</Title>
-                  <Subtitle>History items</Subtitle>
-                </Tile>
-              </NavLink>
-
-              <Tile isSize={4} isParent={true}>
-                <Tile isChild={true} className='box'>
-                  <Title>{stats.history_count_today}</Title>
-                  <Subtitle>History items today</Subtitle>
-                </Tile>
-              </Tile>
-
-              <NavLink className='tile is-parent is-4' to='/aliases'>
-                <Tile isChild={true} className='box'>
-                  <Title>{stats.alias_count}</Title>
-                  <Subtitle>Aliases</Subtitle>
-                </Tile>
-              </NavLink>
-
-              <NavLink className='tile is-parent is-4' to='/observers'>
-                <Tile isChild={true} className='box'>
-                  <Title>{stats.observer_count}</Title>
-                  <Subtitle>Observers</Subtitle>
-                </Tile>
-              </NavLink>
-
-              <NavLink className='tile is-parent is-4' to='/cron'>
-                <Tile isChild={true} className='box'>
-                  <Title>{stats.cron_count}</Title>
-                  <Subtitle>Cron tasks</Subtitle>
-                </Tile>
-              </NavLink>
-
-              {/* These need a different way to be displayed - maybe charts
-              * Other ideas:
-              * - Number of Errors
-              * - Average Yetibot response time
-              */}
-
-              {/* <Tile isSize={4} isParent={true}> */}
-              {/*   <Tile isChild={true} className='box'> */}
-              {/*     <Title>34 / 55</Title> */}
-              {/*     <Subtitle>Configured commmands / available commands</Subtitle> */}
-              {/*   </Tile> */}
-              {/* </Tile> */}
-
-              {/* <Tile isSize={4} isParent={true}> */}
-              {/*   <Tile isChild={true} className='box'> */}
-              {/*     <Title>Top 3 Commands</Title> */}
-              {/*     <Subtitle>Foo bar</Subtitle> */}
-              {/*   </Tile> */}
-              {/* </Tile> */}
-
-            </Tile>
-          </div>
-
-        </div>
-      );
-    }}
-  </Query>
-);
+            </div>
+          );
+        }}
+      </Query>
+    );
+  }
+}

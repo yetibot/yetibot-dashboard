@@ -55,7 +55,7 @@ export const Observers = () => (
               </tr>
             </thead>
             <tbody>
-              {data.observers.map(observer => {
+              {data.observers.map((observer: any) => {
                 const createdAtUTC = moment.utc(observer.created_at);
                 return (
                   <tr key={observer.id}>

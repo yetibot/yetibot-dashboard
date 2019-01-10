@@ -1,5 +1,11 @@
 # yetibot-dashboard CHANGELOG
 
+## 0.7.0 - Unreleased
+
+- Re-create entire project using `create-react-app --typescript`
+- Fixup cron error when it's empty
+- Add `Last active` time to Adapters table
+
 ## 0.6.6 - 10/15/2018
 
 - Add connection metrics and status to Adapters

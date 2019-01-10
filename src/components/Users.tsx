@@ -47,7 +47,7 @@ export const Users = () => (
               </tr>
             </thead>
             <tbody>
-              {data.users.map(user => {
+              {data.users.map((user: any) => {
                 const lastActiveUTC = moment.utc(user.last_active);
                 return (
                   <tr key={user.id}>

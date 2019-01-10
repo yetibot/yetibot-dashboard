@@ -4,9 +4,9 @@ import gql from 'graphql-tag';
 import {Hero, HeroBody, Title, Subtitle, Table, Field,
   // FieldLabel, Control, Input,
   Icon, Notification} from 'bloomer';
-import * as moment from 'moment';
+import moment from 'moment';
 import {timezoneOffsetHours} from '../util/timezone';
-import * as qs from 'query-string';
+import qs from 'query-string';
 import {withRouter, RouteComponentProps} from 'react-router';
 import {NavLink} from 'react-router-dom';
 import _ from 'lodash';
@@ -56,45 +56,49 @@ interface State {
     // search
     s?: string,
     // command only
-    co: string,
-    yo: string
+    co?: string,
+    yo?: string
   };
 }
 
 class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
 
-  constructor(props) {
-    super(props);
-    const query = qs.parse(props.location.search);
-    this.state = {query};
-    console.log('HistoryComponent constructor');
+  state = ({query: {}} as State);
+
+  componentDidMount() {
+    const {s, co, yo} = qs.parse(this.props.location.search);
+    this.setStateFromQuery({s, co, yo});
+    console.log('History mounted');
   }
 
   hasFiltersSet = () => !(_.isEmpty(this.state.query));
 
-  componentDidUpdate(prevProps) {
-    const prevQuery = qs.parse(prevProps.location.search);
-    const query = qs.parse(this.props.location.search);
+  componentDidUpdate(prevProps: any) {
     // If the query was updated, propogate the change to History
-    if (!_.isEqual(prevQuery, query)) {
-      this.setState({query});
+    if (!_.isEqual(prevProps.location.search, this.props.location.search)) {
+      const {s, co, yo} = qs.parse(this.props.location.search);
+      this.setStateFromQuery({s, co, yo});
     }
+  }
+
+  setStateFromQuery({s, co, yo}: any) {
+    this.setState({query: {s, co, yo}});
   }
 
   // store query state on state.query then serialize it and reflect it in
   // the browser location query string
-  updateQueryState = (queryStateToMerge) => {
+  updateQueryState = (queryStateToMerge: any) => {
     const currentQuery = this.state.query;
     const newQuery = {...currentQuery, ...queryStateToMerge};
     this.props.history.push(`/history?${qs.stringify(newQuery)}`);
   }
 
-  commandsOnlyChange = (e) => {
+  commandsOnlyChange = (e: any) => {
     const co = e.target.checked ? '1' : '0';
     this.updateQueryState({co});
   }
 
-  yetibotOnlyChange = (e) => {
+  yetibotOnlyChange = (e: any) => {
     const yo = e.target.checked ? '1' : '0';
     this.updateQueryState({yo});
   }
@@ -198,7 +202,7 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.history.map(historyItem => {
+                  {data.history.map((historyItem: any) => {
                     const createdAtUTC = moment.utc(historyItem.created_at);
                     return (
                       <tr key={historyItem.id}>
