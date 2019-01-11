@@ -202,7 +202,7 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.history.map((historyItem: any) => {
+                  {data.history && data.history.map((historyItem: any) => {
                     const createdAtUTC = moment.utc(historyItem.created_at);
                     return (
                       <tr key={historyItem.id}>

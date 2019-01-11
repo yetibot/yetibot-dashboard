@@ -28,13 +28,17 @@ class SearchComponent extends Component<RouteComponentProps<Props>, State> {
     }
   }
 
-  searchChange = (e: any) => {
-    const query = e.target.value;
-    this.setState({search: query});
-    console.log('searchChange', query);
+  search = _.debounce((query: string) => {
+    console.log('executing search', query);
     const currentQuery = qs.parse(this.props.location.search);
     const queryString = {...currentQuery, s: query};
     this.props.history.push(`/history?${qs.stringify(queryString)}`);
+  }, 250, {maxWait: 1000})
+
+  searchChange = (e: any) => {
+    const query = e.target.value;
+    this.setState({search: query});
+    this.search(query);
   }
 
   render() {
