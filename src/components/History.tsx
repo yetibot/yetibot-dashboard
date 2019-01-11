@@ -107,6 +107,7 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
   }
 
   render() {
+    const query = this.searchQuery();
     return (
       <Query
         query={HISTORY}
@@ -114,7 +115,7 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
         variables={{
           commands_only: this.isCommandsOnly(),
           yetibot_only: this.isYetibotOnly(),
-          search_query: this.searchQuery(),
+          search_query: query,
           timezone_offset_hours: timezoneOffsetHours
         }}
       >
@@ -126,12 +127,21 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
               <Hero isBold={true} isColor='info' isSize='small'>
                 <HeroBody>
                   <Title>History</Title>
-                  <Subtitle>Total items {data.stats.history_count}</Subtitle>
+                  <Subtitle>
+                    Total items {data.stats.history_count}
+                  </Subtitle>
                 </HeroBody>
               </Hero>
 
               <div className='history-filters'>
                 <Field isHorizontal={true}>
+                  {query
+                    ? <Field isHorizontal={true} style={{marginRight: 20}}>
+                        <span>Searching for
+                          <span className='query'>{query}</span>
+                        </span>
+                      </Field>
+                    : ''}
                   <Field isHorizontal={true} className='checkbox-field'>
                     <input
                       id='command-only'
@@ -174,9 +184,8 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
                   </Field>
                   {this.hasFiltersSet()
                     ? (<NavLink className='button is-small is-light' to='/history'>
-                         <Icon isSize='small' isAlign='left'>
-                           <span className='fa fa-times-circle' aria-hidden='true'/>
-                         </Icon>
+                        <Icon isSize='small' isAlign='left'
+                          className='fa fa-times-circle' />
                          <span>Reset</span>
                        </NavLink>)
                          : null}

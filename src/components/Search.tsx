@@ -50,7 +50,7 @@ class SearchComponent extends Component<RouteComponentProps<Props>, State> {
           placeholder='Search History'
           isColor='light'
         />
-        <Icon isSize='small' isAlign='left'><span className='fa fa-search' aria-hidden='true'/></Icon>
+        <Icon isSize='small' isAlign='left' className='fa fa-search' />
       </Control>
     );
   }

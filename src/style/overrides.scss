@@ -99,3 +99,13 @@ nav.navbar {
 table.is-fullwidth {
   table-layout: fixed;
 }
+
+span.query {
+  @extend .has-background-white;
+  background-color: #e8e8e8;
+  border-radius: 2px;
+  margin-left: 4px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+
+}

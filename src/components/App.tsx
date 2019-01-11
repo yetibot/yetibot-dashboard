@@ -71,7 +71,7 @@ export class App extends Component<Props, AppState> {
   constructor(props: any) {
     super(props);
     // TODO set active class name globally
-    // NavLink.defaultProps = {...NavLink.defaultProps, activeClassName: 'is-active'};
+    (NavLink as any).defaultProps = {...(NavLink as any).defaultProps, activeClassName: 'is-active'};
     this.state = {};
   }
 
