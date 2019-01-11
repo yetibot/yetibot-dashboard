@@ -40,13 +40,6 @@ const HISTORY = gql`
   }
 `;
 
-// const customStyles = {
-//   control: (base) => ({
-//     ...base,
-//     height: '24px',
-//     'min-height': '24px'
-//   })
-// };
 
 interface Props {
 }

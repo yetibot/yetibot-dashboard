@@ -5,6 +5,8 @@ import {Hero, HeroBody, Title, Subtitle, Table, Notification} from 'bloomer';
 import {timezoneOffsetHours} from '../util/timezone';
 import moment from 'moment';
 
+moment.relativeTimeThreshold('ss', 0);
+
 const ADAPTERS = gql`
   query stats($timezone_offset_hours: Int!) {
     stats(timezone_offset_hours: $timezone_offset_hours) {
@@ -43,7 +45,7 @@ export const Adapters = () => (
                 <th>Platform</th>
                 <th>UUID</th>
                 <th title='Is this adapter connected?'>Connected?</th>
-                <th title='Round trip latency recorded at the last active timestamp'>Last known latency</th>
+                <th title='Round trip latency recorded at the last active timestamp'>Last recorded latency</th>
                 <th title='Timestamp from when we last confirmed that the connection to this Adapter was active'>
                   Last active
                 </th>
