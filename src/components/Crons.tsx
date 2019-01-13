@@ -53,7 +53,7 @@ export const Crons = () => (
               </tr>
             </thead>
             <tbody>
-              {data.crons.map(cron => {
+              {data.crons && data.crons.map((cron: any) => {
                 const createdAtUTC = moment.utc(cron.created_at);
                 return (
                   <tr key={cron.id}>

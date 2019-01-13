@@ -48,7 +48,7 @@ export const Aliases = () => (
               </tr>
             </thead>
             <tbody>
-              {data.aliases.map(alias => {
+              {data.aliases.map((alias: any) => {
                 const createdAtUTC = moment.utc(alias.created_at);
                 return (
                   <tr key={alias.id}>

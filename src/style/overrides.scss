@@ -1,10 +1,11 @@
-@import "~bulma/sass/utilities/initial-variables";
-@import "~bulma/sass/utilities/functions";
-
+// override bulma variables before importing it
 $cyan: #55C4D4;
 
+// @import "~bulma/sass/utilities/initial-variables";
+// @import "~bulma/sass/utilities/functions";
 @import "~bulma/bulma";
 
+@import "~bulma-checkradio";
 
 html, body {
   min-height: 100%;
@@ -97,4 +98,14 @@ nav.navbar {
 
 table.is-fullwidth {
   table-layout: fixed;
+}
+
+span.query {
+  @extend .has-background-white;
+  background-color: #e8e8e8;
+  border-radius: 2px;
+  margin-left: 4px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+
 }

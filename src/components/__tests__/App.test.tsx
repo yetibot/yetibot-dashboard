@@ -1,11 +1,10 @@
-import * as React from 'react';
-import {App} from './../App';
-import {mount} from 'enzyme';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {App} from '../App';
 
-describe('<App />', () => {
-  it('works with .tsx components', () => {
-    const name = 'hello how are you';
-    const wrapper = mount(<App name={name} />);
-    expect(wrapper.text()).toContain('Yetibot');
-  });
+it('renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<App name="Yetibot" />, div);
+  ReactDOM.unmountComponentAtNode(div);
 });
+

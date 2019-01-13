@@ -36,7 +36,8 @@ import {Search} from './Search';
 import {Observers} from './Observers';
 import {Crons} from './Crons';
 import {Dashboard} from './Dashboard';
-import YetibotLogo from '-!svg-react-loader?name=yetibotLogo!../img/yetibot_lambda_blue_with_grey.svg';
+// import YetibotLogo from '-!svg-react-loader?name=yetibotLogo!../img/yetibot_lambda_blue_with_grey.svg';
+import logo from '../img/yetibot_lambda_blue_with_grey.svg';
 
 import {
   BrowserRouter as Router,
@@ -44,9 +45,6 @@ import {
   NavLink
 } from 'react-router-dom';
 
-// import 'bulma/css/bulma.css';
-// import bulma from '~bulma/bulma.sass';
-import 'bulma/bulma.sass';
 
 declare global {
   interface Window {
@@ -70,9 +68,10 @@ interface AppState {
 
 export class App extends Component<Props, AppState> {
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
-    NavLink.defaultProps = {...NavLink.defaultProps, activeClassName: 'is-active'};
+    // TODO set active class name globally
+    (NavLink as any).defaultProps = {...(NavLink as any).defaultProps, activeClassName: 'is-active'};
     this.state = {};
   }
 
@@ -89,7 +88,12 @@ export class App extends Component<Props, AppState> {
                     <NavbarBrand>
                       <NavbarItem>
                         <NavLink to='/'>
-                          <YetibotLogo style={{width: 120, height: 28}} />
+                          <img
+                            style={{width: 120, height: 28}}
+                            src={logo}
+                            className="yetibot-lgo"
+                            alt="Yetibot"
+                          />
                         </NavLink>
                       </NavbarItem>
                     </NavbarBrand>

@@ -13,7 +13,7 @@ const HISTORY = gql`
 `;
 
 interface Props {
-  id: String;
+  id: string;
 }
 
 interface State {

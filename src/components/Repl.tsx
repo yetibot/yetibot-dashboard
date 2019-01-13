@@ -21,7 +21,7 @@ export const Repl = () => (
 
       return (
         <div>
-          {data.adapters.map(({platform, uuid}) =>
+          {data.adapters.map(({platform, uuid}: any) =>
             <div key={uuid}>
               {platform} {uuid}
             </div>
