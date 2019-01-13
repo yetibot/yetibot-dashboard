@@ -5,6 +5,8 @@
 - Re-create entire project using `create-react-app --typescript`
 - Fixup cron error when it's empty
 - Add `Last active` time to Adapters table
+- Show the query on the History page when set
+- Debounce the search box
 
 ## 0.6.6 - 10/15/2018
 
