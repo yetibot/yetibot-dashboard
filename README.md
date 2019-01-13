@@ -16,14 +16,6 @@ consumed and served by [yetibot.core](https://github.com/yetibot/yetibot.core).
 - Bulma + Bloomer
 - React Router
 
-## Introspect schema
-
-(This doesn't work currently - use apollo CLI to get it working again).
-
-```bash
-apollo-codegen introspect-schema http://localhost:3003/graphql --output schema.json
-```
-
 ## Development
 
 ```sh
@@ -50,7 +42,17 @@ This creates a commit and git tag. Now simply `git push` and Travis will
 deploy the new package.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Introspect schema
+
+(This doesn't work currently - use apollo CLI to get it working again).
+
+```bash
+apollo-codegen introspect-schema http://localhost:3003/graphql --output schema.json
+```
+
 ## Available Scripts
+
+This project was generated with `create-react-app --typescript`.
 
 In the project directory, you can run:
 
