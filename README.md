@@ -4,6 +4,7 @@ A static dashboard that runs against Yetibot's GraphQL API. This npm module is
 consumed and served by [yetibot.core](https://github.com/yetibot/yetibot.core).
 
 [![npm](https://img.shields.io/npm/v/yetibot-dashboard.svg?style=for-the-badge)](https://www.npmjs.com/package/yetibot-dashboard)
+[![Travis](https://img.shields.io/travis/yetibot/yetibot-dashboard.svg?style=for-the-badge)](https://travis-ci.org/yetibot/yetibot-dashboard)
 
 ## Tech
 
