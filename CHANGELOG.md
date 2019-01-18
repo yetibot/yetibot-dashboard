@@ -1,6 +1,10 @@
 # yetibot-dashboard CHANGELOG
 
-## 0.7.0 - Unreleased
+## 0.7.1 - 1/17/2019
+
+- Remove incorrect favicon HTML
+
+## 0.7.0 - 1/13/2019
 
 - Re-create entire project using `create-react-app --typescript`
 - Fixup cron error when it's empty
