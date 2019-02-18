@@ -145,13 +145,13 @@ export class App extends Component<Props, AppState> {
                         </a>
                         </li>
                         <li>
-                          <a href='https://yetibot.com/archives/'>
+                          <a href='https://yetibot.com/archives'>
                             <Icon isSize='small' isAlign='left' className='fa fa-external-link-alt' />
                             Blog
                           </a>
                         </li>
                         <li>
-                          <a href='https://yetibot.com/user-guide/'>
+                          <a href='https://yetibot.com/user-guide'>
                             <Icon isSize='small' isAlign='left' className='fa fa-external-link-alt' />
                             Docs
                         </a>
