@@ -5,6 +5,16 @@ $cyan: #55C4D4;
 // @import "~bulma/sass/utilities/functions";
 @import "~bulma/bulma";
 @import "~bulma-checkradio";
+@import "~bulma-calendar/src/sass/index.sass";
+
+.columns {
+  &.is-fullheight {
+    flex: 1;
+    .column {
+      overflow-y: auto;
+    }
+  }
+}
 
 html, body {
   min-height: 100%;
