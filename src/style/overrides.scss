@@ -4,7 +4,6 @@ $cyan: #55C4D4;
 // @import "~bulma/sass/utilities/initial-variables";
 // @import "~bulma/sass/utilities/functions";
 @import "~bulma/bulma";
-
 @import "~bulma-checkradio";
 
 html, body {
@@ -75,8 +74,13 @@ nav.navbar {
 }
 
 .history-filters {
-  background: $light;
+  background: $dark;
+  color: $white;
   padding: 20px;
+
+  ol {
+    list-style: none;
+  }
 
   .checkbox-field {
     margin-top: -4px;
@@ -92,8 +96,27 @@ nav.navbar {
   > .field.is-horizontal {
     margin-bottom: -16px;
   }
+}
 
-
+.history {
+  .column {
+    .history-body {
+      padding: 12px 6px;;
+      // background-color: white;
+    }
+  }
+  .filters {
+    padding: 12px 12px;;
+    // background-color: $dark;
+    // color: $light;
+  }
+  .history-item {
+    overflow-x: scroll;
+    padding: 12px 6px;
+    &:hover {
+      background-color: whitesmoke;
+    }
+  }
 }
 
 table.is-fullwidth {

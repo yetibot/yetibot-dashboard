@@ -22,7 +22,7 @@
     "@types/react-dom": "16.0.11",
     "@types/react-router": "^4.0.25",
     "@types/react-router-dom": "^4.3.1",
-    "node-sass": "^4.11.0"
+    "node-sass": "^4.12.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
@@ -32,6 +32,7 @@
     "apollo-link-http": "^1.5.4",
     "bloomer": "^0.6.3",
     "bulma": "^0.7.1",
+    "bulma-calendar": "^6.0.7",
     "bulma-checkradio": "^2.1.0",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",

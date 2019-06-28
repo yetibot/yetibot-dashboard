@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import {Hero, HeroBody, Title, Subtitle, Table, Field,
-  // FieldLabel, Control, Input,
+import {
+  Hero, HeroBody, Title, Subtitle, Table, Field,
+  Input,
+  // FieldLabel, Control,
   Icon, Notification} from 'bloomer';
 import moment from 'moment';
 import {timezoneOffsetHours} from '../util/timezone';
@@ -14,28 +16,46 @@ import _ from 'lodash';
 
 const HISTORY = gql`
 
-  query history($timezone_offset_hours: Int!, $yetibot_only: Boolean!, $commands_only: Boolean!, $search_query: String) {
+  query history(
+    $timezone_offset_hours: Int!,
+    $yetibot_only: Boolean!,
+    $commands_only: Boolean!,
+    $search_query: String
+  ) {
     stats(timezone_offset_hours: $timezone_offset_hours) {
       history_count
     }
 
-    history(limit: 30, offset: 0,
-      commands_only: $commands_only,
-      yetibot_only: $yetibot_only,
-      search_query: $search_query
-    ) {
-      id
+    adapter_channels {
       chat_source_adapter
-      chat_source_room
-      command
-      correlation_id
-      created_at
-      user_name
-      is_command
-      is_yetibot
-      body
-      user_id
-      user_name
+      channels {
+        chat_source_room
+        chat_source_adapter
+      }
+    }
+
+    history (
+      first: 30,
+    ) {
+      page_info {
+        has_next_page
+        total_results
+        next_page_cursor
+      }
+      history {
+        id
+        chat_source_adapter
+        chat_source_room
+        command
+        correlation_id
+        created_at
+        user_name
+        is_command
+        is_yetibot
+        body
+        user_id
+        user_name
+      }
     }
   }
 `;
@@ -46,21 +66,54 @@ interface Props {
 
 interface State {
   query: {
-    // search
-    s?: string,
-    // command only
-    co?: string,
-    yo?: string
+    y?: string,
+    e?: string,
+    n?: string,
+    h?: string,
+    s?: string
   };
 }
+
+// [["-h" "--include-history-commands"]
+// ["-y" "--exclude-yetibot"]
+// ["-e" "--exclude-commands"]
+// ["-n" "--exclude-non-commands"]
+// ["-a" "--include-all-channels"]
+// ["-c" "--channels CHANNEL1,CHANNEL2"]
+// ["-u" "--user USER1,USER2"]
+// ["-s" "--since DATE"]
+// ["-v" "--until DATE"]]
+
+const booleanOptions = {
+  "excludeYetibot": {
+    label: "Exclude Yetibot responses",
+    shortOption: "y"
+  },
+  "excludeCommands": {
+    label: "Exclude commands",
+    shortOption: "e",
+  },
+  "excludeNonCommands": {
+    label: "Exclude non-commands",
+    shortOption: 'n'
+  },
+  // channel
+  "includeHistoryCommands": {
+    label: "Include history commands",
+    shortOption: 'h'
+  }
+  // Keep `includeAllChannels` on by default since the web dashboard is not in a
+};
+
+type ShortOptionKey = 'y' | 'e' | 'n' | 'h';
 
 class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
 
   state = ({query: {}} as State);
 
   componentDidMount() {
-    const {s, co, yo} = qs.parse(this.props.location.search);
-    this.setStateFromQuery({s, co, yo});
+    const {y, e, n, h, s} = qs.parse(this.props.location.search);
+    this.setStateFromQuery({y, e, n, h, s});
     console.log('History mounted');
   }
 
@@ -69,42 +122,65 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
   componentDidUpdate(prevProps: any) {
     // If the query was updated, propogate the change to History
     if (!_.isEqual(prevProps.location.search, this.props.location.search)) {
-      const {s, co, yo} = qs.parse(this.props.location.search);
-      this.setStateFromQuery({s, co, yo});
+      const {y, e, n, h, s} = qs.parse(this.props.location.search);
+      this.setStateFromQuery({y, e, n, h, s});
     }
   }
 
-  setStateFromQuery({s, co, yo}: any) {
-    this.setState({query: {s, co, yo}});
+  setStateFromQuery({y, e, n, h, s}: any) {
+    this.setState({query: {y, e, n, h, s}});
   }
 
   // store query state on state.query then serialize it and reflect it in
   // the browser location query string
   updateQueryState = (queryStateToMerge: any) => {
     const currentQuery = this.state.query;
-    const newQuery = {...currentQuery, ...queryStateToMerge};
+    const newQuery = _.pickBy({...currentQuery, ...queryStateToMerge},
+                              (v, k) => v !== '0');
+
     this.props.history.push(`/history?${qs.stringify(newQuery)}`);
   }
 
-  commandsOnlyChange = (e: any) => {
-    const co = e.target.checked ? '1' : '0';
-    this.updateQueryState({co});
+  // commandsOnlyChange = (e: any) => {
+  //   const co = e.target.checked ? '1' : '0';
+  //   this.updateQueryState({co});
+  // }
+  // yetibotOnlyChange = (e: any) => {
+  //   const yo = e.target.checked ? '1' : '0';
+  //   this.updateQueryState({yo});
+  // }
+  // isCommandsOnly = () => (this.state.query.co === '1');
+  //
+  // isYetibotOnly = () => (this.state.query.yo === '1');
+
+  booleanChange = (key: string, e: any) => {
+    const val = e.target.checked ? '1' : '0';
+    this.updateQueryState({[key]: val});
   }
 
-  yetibotOnlyChange = (e: any) => {
-    const yo = e.target.checked ? '1' : '0';
-    this.updateQueryState({yo});
-  }
-
-  isCommandsOnly = () => (this.state.query.co === '1');
-
-  isYetibotOnly = () => (this.state.query.yo === '1');
+  booleanValue = (key: string) =>
+    this.state.query[key] === '1';
 
   searchQuery = () => {
     const st = this.state.query.s;
     // explicity return undefined for null or empty strings
     return (st) ? st : undefined;
   }
+
+  booleanElement = ({label, shortOption}: any) =>
+    <li>
+      <Field key={shortOption} className='checkbox-field'>
+        <input
+          id={shortOption}
+          className='is-small is-white has-background-color is-checkradio'
+          type='checkbox'
+          checked={this.booleanValue(shortOption)}
+          onChange={_.partial(this.booleanChange, shortOption)}
+        />
+        <label htmlFor={shortOption}>{label}</label>
+      </Field>
+    </li>
+
 
   render() {
     const query = this.searchQuery();
@@ -113,8 +189,8 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
         query={HISTORY}
         pollInterval={0}
         variables={{
-          commands_only: this.isCommandsOnly(),
-          yetibot_only: this.isYetibotOnly(),
+          commands_only: false,
+          yetibot_only: false,
           search_query: query,
           timezone_offset_hours: timezoneOffsetHours
         }}
@@ -135,6 +211,13 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
 
               <div className='history-filters'>
                 <Field isHorizontal={true}>
+                  <ol>
+                    {_.map(_.take(_.values(booleanOptions), 2), this.booleanElement)}
+                  </ol>
+                  <ol>
+                    {_.map(_.drop(_.values(booleanOptions), 2), this.booleanElement)}
+                  </ol>
+
                   {query
                     ? <Field isHorizontal={true} style={{marginRight: 20}}>
                         <span>Searching for
@@ -142,83 +225,94 @@ class HistoryComponent extends Component<RouteComponentProps<Props>, State> {
                         </span>
                       </Field>
                     : ''}
-                  <Field isHorizontal={true} className='checkbox-field'>
-                    <input
-                      id='command-only'
-                      className='is-small is-white has-background-color is-checkradio'
-                      type='checkbox'
-                      checked={this.isCommandsOnly()}
-                      onChange={this.commandsOnlyChange}
-                    />
-                    <label htmlFor='command-only'>Commands only</label>
-                  </Field>
-                  <Field isHorizontal={true} className='checkbox-field'>
-                    <input
-                      id='yetibot-only'
-                      className='is-small is-white has-background-color is-checkradio'
-                      type='checkbox'
-                      checked={this.isYetibotOnly()}
-                      onChange={this.yetibotOnlyChange}
-                    />
-                    <label htmlFor='yetibot-only'>Yetibot only</label>
-                  </Field>
-                  <Field isHorizontal={true}>
-                    {
-                      // <FieldLabel isSize='small'>Channel</FieldLabel>
-                      // <Select
-                      // styles={customStyles}
-                      // options={[{label: 'one one one'}, {label: 'two two two'}]} />
-                     }
-                  </Field>
-                  <Field isHorizontal={true}>
-                    {
-                      // <FieldLabel isSize='small'>User</FieldLabel>
-                      // <Control hasIcons='left'>
-                      //   <Input className='is-info' isSize='small' />
-                      //   <Icon isSize='small' isAlign='left'>
-                      //     <span className='fa fa-user' aria-hidden='true'/>
-                      //   </Icon>
-                      // </Control>
-
-                    }
-                  </Field>
+                  <ol>
+                    <li>
+                      <Field isHorizontal={true}>
+                        <Input isSize='small' placeholder='Since YYYY-MM-DD' />
+                      </Field>
+                    </li>
+                    <li>
+                      <Field isHorizontal={true}>
+                        <Input isSize='small' placeholder='Until YYYY-MM-DD' />
+                      </Field>
+                    </li>
+                  </ol>
                   {this.hasFiltersSet()
                     ? (<NavLink className='button is-small is-light' to='/history'>
                         <Icon isSize='small' isAlign='left'
                           className='fa fa-times-circle' />
-                         <span>Reset</span>
+                         <span>Clear All Filters</span>
                        </NavLink>)
                          : null}
                 </Field>
               </div>
 
-              <Table isStriped={true} className='is-fullwidth is-hoverable'>
-                <thead>
-                  <tr>
-                    <th>User</th>
-                    <th>Body</th>
-                    <th>Channel</th>
-                    <th>Created</th>
-                    <th>Command?</th>
-                    <th>Yetibot?</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.history && data.history.map((historyItem: any) => {
-                    const createdAtUTC = moment.utc(historyItem.created_at);
-                    return (
-                      <tr key={historyItem.id}>
-                        <td title={`User ID ${historyItem.user_id}`}>{historyItem.user_name}</td>
-                        <td title={historyItem.id}>{historyItem.body}</td>
-                        <td title={`Adapter ${historyItem.chat_source_adapter}`}>{historyItem.chat_source_room}</td>
-                        <td title={createdAtUTC.local().format()}>{createdAtUTC.fromNow()}</td>
-                        <td>{(historyItem.is_command) ? '✅' : ''}</td>
-                        <td>{(historyItem.is_yetibot) ? '✅' : ''}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </Table>
+              <div className="history columns is-gapless">
+                <div className="column is-one-fifth">
+                  <div className="filters has-background-white-bis">
+                    <div className="field">
+                      <input
+                        className="is-checkradio is-block is-dark"
+                        id="exampleCheckboxBlockDefault"
+                        type="checkbox"
+                        name="exampleCheckboxBlockDefault"
+                        checked={true}
+                      />
+                      <label htmlFor="exampleCheckboxBlockDefault">
+                        All Channels
+                      </label>
+                    </div>
+
+                    <p>Filter channels</p>
+                    {data.adapter_channels
+                      .flatMap(({channels}: {channels: [any]}) => channels)
+                      .map(({chat_source_adapter, chat_source_room}:
+                            {chat_source_adapter: string, chat_source_room: string}) =>
+                        <div key={chat_source_adapter + chat_source_room}>
+                          <span className="tag is-dark">
+                            {chat_source_adapter} {chat_source_room}
+                          </span>
+                        </div>
+                      )
+                    }
+                  </div>
+                </div>
+                <div className="column is-four-fifths has-background-white">
+                  <div className="history-body">
+                    {data.history && data.history.history.map((historyItem: any) => {
+                      const createdAtUTC = moment.utc(historyItem.created_at);
+                      return (
+                        <div className="history-item" key={historyItem.id}>
+                          <div>
+                            <span
+                              title={`Adapter ${historyItem.chat_source_adapter}`}
+                              className="tag is-dark">{historyItem.chat_source_room}</span>
+                            &nbsp;
+                            <span title={createdAtUTC.local().format()}>{createdAtUTC.fromNow()}</span>
+                            &nbsp;
+                            <strong title={`User ID ${historyItem.user_id}`}>{historyItem.user_name}</strong>
+                            &nbsp;
+                            {(historyItem.is_command)
+                              ? <span className="tag is-link">Command </span>
+                              : null}
+                            {(historyItem.is_yetibot)
+                              ? <span className="tag is-warning">Yetibot</span>
+                              : ''}
+                          </div>
+                          <div title={historyItem.id}>{historyItem.body}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <pre>
+                  {JSON.stringify(data, null, 2)}
+                </pre>
+              </div>
+
             </div>
           );
         }}

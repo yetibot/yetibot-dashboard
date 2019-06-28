@@ -1,36 +1,56 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
+import {withRouter, RouteComponentProps} from 'react-router';
 
-import {Title} from 'bloomer';
+import {Title, Notification} from 'bloomer';
 
-const ADAPTERS = gql`
-  {
-    adapters {
-      platform
-      uuid
-    }
+const QUERY = gql`
+  query query($expr: String!) {
+    eval(expr: $expr)
   }
 `;
 
-export const Repl = () => (
-  <Query query={ADAPTERS}>
-    {({loading, error, data}) => {
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error {error}</p>;
+interface Props {
+}
 
-      return (
-        <div>
-          {data.adapters.map(({platform, uuid}: any) =>
-            <div key={uuid}>
-              {platform} {uuid}
+interface State {
+  query: {
+    // search
+    s?: string,
+    // command only
+    co?: string,
+    yo?: string
+  };
+}
+
+class ReplComponent extends Component<RouteComponentProps<Props>, State> {
+
+  render = () =>
+    <Query
+      query={QUERY}
+      variables={{
+        expr: 'echo hi'
+      }}
+    >
+      {({loading, error, data}) => {
+        if (loading) return <Notification isColor='info'>Loading...</Notification>;
+        if (error) return <Notification isColor='danger'>{error.message}</Notification>;
+
+        return (
+          <div>
+            <Title>REPL</Title>
+            <div>
+              <code>
+                {JSON.stringify(data, null, 2)}
+              </code>
             </div>
-          )}
+            <Title>Parser</Title>
+          </div>
+        );
+      }}
+    </Query>
 
-          <Title>REPL</Title>
-          <Title>Parser</Title>
-        </div>
-      );
-    }}
-  </Query>
-);
+}
+
+export const Repl = withRouter(ReplComponent);
