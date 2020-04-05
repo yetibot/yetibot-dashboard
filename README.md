@@ -1,5 +1,13 @@
 # yetibot-dashboard
 
+:warning:
+Note: This project will eventually be superseded by
+[yetibot/dashboard](https://github.com/yetibot/dashboard), the new CLJS
+frontend, once it's ready
+:warning:
+
+---
+
 A static dashboard that runs against Yetibot's GraphQL API. This npm module is
 consumed and served by [yetibot.core](https://github.com/yetibot/yetibot.core).
 
