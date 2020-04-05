@@ -6,6 +6,16 @@ consumed and served by [yetibot.core](https://github.com/yetibot/yetibot.core).
 [![npm](https://img.shields.io/npm/v/yetibot-dashboard.svg?style=for-the-badge)](https://www.npmjs.com/package/yetibot-dashboard)
 [![Travis](https://img.shields.io/travis/yetibot/yetibot-dashboard.svg?style=for-the-badge)](https://travis-ci.org/yetibot/yetibot-dashboard)
 
+## DigitalOcean sponsorship
+
+<p>This project is supported by:</p>
+<p>
+  <a href="https://www.digitalocean.com/">
+    <img src="https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/SVG/DO_Logo_horizontal_blue.svg" width="201px">
+  </a>
+</p>
+
+
 ## Tech
 
 - TypeScript
