@@ -44,7 +44,7 @@
     "react-scripts": "3.3.0",
     "react-select": "^2.1.0",
     "typescript": "3.2.2",
-    "snyk": "^1.305.0"
+    "snyk": "^1.731.0"
   },
   "scripts": {
     "start": "react-scripts start",
