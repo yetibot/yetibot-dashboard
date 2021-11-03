@@ -27,8 +27,8 @@
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
-    "apollo-boost": "^0.1.23",
-    "apollo-cache-inmemory": "^1.2.9",
+    "apollo-boost": "^0.4.9",
+    "apollo-cache-inmemory": "^1.6.6",
     "apollo-link-http": "^1.5.4",
     "bloomer": "^0.6.3",
     "bulma": "^0.7.1",
