@@ -34,7 +34,7 @@
     "bulma": "^0.7.1",
     "bulma-checkradio": "^2.1.0",
     "graphql": "^14.0.2",
-    "graphql-tag": "^2.9.2",
+    "graphql-tag": "^2.12.5",
     "moment": "^2.22.1",
     "query-string": "^6.1.0",
     "react": "^16.7.0",
