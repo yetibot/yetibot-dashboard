@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.22.1
+version: v1.25.1
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -1411,3 +1411,36 @@ patch:
         patched: '2021-11-11T21:00:43.170Z'
     - react-scripts > jest > jest-cli > jest-config > jest-jasmine2 > @babel/traverse > @babel/generator > lodash:
         patched: '2021-11-11T21:00:43.170Z'
+    - react-scripts > babel-jest > @jest/transform > @babel/core > lodash:
+        patched: '2023-07-04T16:25:29.031Z'
+        id: SNYK-JS-LODASH-567746
+        path: react-scripts > babel-jest > @jest/transform > @babel/core > lodash
+    - react-scripts > babel-jest > @types/babel__core > @types/babel__generator > @babel/types > lodash:
+        patched: '2023-07-04T16:25:29.031Z'
+        id: SNYK-JS-LODASH-567746
+        path: >-
+          react-scripts > babel-jest > @types/babel__core >
+          @types/babel__generator > @babel/types > lodash
+    - react-scripts > @svgr/webpack > @babel/preset-env > @babel/preset-modules > @babel/plugin-proposal-unicode-property-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash:
+        patched: '2023-07-04T16:25:29.031Z'
+        id: SNYK-JS-LODASH-567746
+        path: >-
+          react-scripts > @svgr/webpack > @babel/preset-env >
+          @babel/preset-modules > @babel/plugin-proposal-unicode-property-regex
+          > @babel/helper-create-regexp-features-plugin > @babel/helper-regex >
+          lodash
+    - react-scripts > babel-jest > @jest/transform > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2023-07-04T16:25:29.031Z'
+        id: SNYK-JS-LODASH-567746
+        path: >-
+          react-scripts > babel-jest > @jest/transform > @babel/core >
+          @babel/helper-module-transforms > @babel/helper-replace-supers >
+          @babel/traverse > lodash
+    - react-scripts > @svgr/webpack > @babel/preset-env > @babel/preset-modules > @babel/plugin-proposal-unicode-property-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-annotate-as-pure > @babel/types > lodash:
+        patched: '2023-07-04T16:25:29.031Z'
+        id: SNYK-JS-LODASH-567746
+        path: >-
+          react-scripts > @svgr/webpack > @babel/preset-env >
+          @babel/preset-modules > @babel/plugin-proposal-unicode-property-regex
+          > @babel/helper-create-regexp-features-plugin >
+          @babel/helper-annotate-as-pure > @babel/types > lodash
